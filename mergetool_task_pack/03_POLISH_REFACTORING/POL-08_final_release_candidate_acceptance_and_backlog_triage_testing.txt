@@ -1,0 +1,28 @@
+Scope: 03_POLISH_REFACTORING
+Task: POL-08
+
+# POL-08 Testing Task
+## Headline
+Verify: Run final release-candidate acceptance and backlog triage
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Execute release-candidate acceptance across file compare/merge, folder compare/sync, rules/profiles, 3-way manual workflows, settings, errors, performance smoke, and portable app. Confirm all known limitations are honestly disclosed. Issue final Pass / Conditional Pass / Fail recommendation with blockers explicitly listed.
+
+
+## Tester completion evidence
+Create `docs/task-reports/POL-08_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

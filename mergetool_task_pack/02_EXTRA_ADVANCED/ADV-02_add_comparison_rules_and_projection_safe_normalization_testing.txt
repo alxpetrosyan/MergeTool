@@ -1,0 +1,28 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-02
+
+# ADV-02 Testing Task
+## Headline
+Verify: Add comparison rules with projection-safe normalization
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Verify rules change comparison outcome only after recompare, original text remains unchanged, invalid expressions are safe diagnostics, and merge copies original text. Test nested/overlapping ignored-block errors explicitly.
+
+
+## Tester completion evidence
+Create `docs/task-reports/ADV-02_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

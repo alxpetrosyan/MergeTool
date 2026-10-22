@@ -1,0 +1,41 @@
+Scope: 01_MVP
+Task: MVP-06
+
+# MVP-06 Development Task
+## Headline
+Build WPF shell, workspace tabs, and async UI state
+
+
+## Objective
+Create one coherent app shell that can host File Compare and Folder Compare workflows; do not build isolated proof-of-concept windows.
+
+## Developer instructions
+Add AvalonEdit only now, after completing the dependency policy entry and central version pin.
+
+Implement WPF shell with:
+- main window and a visible workspace/tab model
+- `File Compare` workspace and `Folder Compare` workspace navigation
+- one active file comparison tab at launch, plus ability to open a new file-comparison tab from application services later
+- command bar/status bar host
+- busy/progress/cancel presentation wired to Application operation status
+- error/diagnostic presentation area that displays safe messages and can expose technical details only on demand
+- view models that consume application sessions; WPF code-behind limited to control-specific wiring
+- consistent state transitions: Idle, Loading/Comparing, Completed, Cancelled, Failed, Stale
+
+Do not yet implement full compare rendering or folder grid details. The shell may use placeholder content that is clearly marked as incomplete until later tasks.
+
+Add view-model tests for request replacement, busy/cancel command enabling, diagnostic display state, and tab lifetime without needing a UI automation framework.
+
+## Acceptance criteria
+- The app launches into a single shell, never multiple unrelated windows for normal workflows.
+- A cancel command is wired through view models to a cancellation token source for a simulated long operation.
+- Application services remain independent of WPF.
+
+## Drift prevention
+No generic navigation framework, theme system, docking suite, paid UI package, or elaborate tab persistence.
+
+## Mandatory completion evidence
+- Add/update automated tests for the change.
+- Run Debug and Release build/test commands.
+- Create the required development report under `docs/task-reports/`.
+- Do not start the next task until the paired testing task has passed.

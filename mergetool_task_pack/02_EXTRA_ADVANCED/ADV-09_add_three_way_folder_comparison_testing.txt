@@ -1,0 +1,28 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-09
+
+# ADV-09 Testing Task
+## Headline
+Verify: Add 3-way folder comparison
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Test all presence combinations and left/right/base metadata divergences. Verify state labels are understandable, paths are correct, and no action performs a copy automatically.
+
+
+## Tester completion evidence
+Create `docs/task-reports/ADV-09_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

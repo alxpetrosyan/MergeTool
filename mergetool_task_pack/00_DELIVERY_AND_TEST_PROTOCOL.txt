@@ -1,0 +1,63 @@
+# Delivery and Test Protocol for Codex
+
+## Before every development task
+1. Read the target development task and its paired testing task.
+2. Inspect all completed task reports and any unresolved defect files.
+3. Confirm the task is not blocked by a failed preceding test.
+4. State in the task report the exact feature boundary you will implement.
+
+## During a development task
+- Implement only the requested scope plus minimal plumbing required for it to work.
+- Do not silently change public architecture or add packages.
+- Keep commits/task changes small and coherent.
+- Add or update automated tests with the feature, not after it.
+- Update `docs/DEPENDENCIES.md` before committing a new package.
+- Update `docs/architecture/` only when a meaningful decision changes.
+
+## End-of-development evidence
+Create `docs/task-reports/<TASK-ID>_development.md` containing:
+- objective completed
+- files/projects changed
+- design decisions and alternatives rejected
+- tests added/updated
+- exact build/test commands and result
+- known limitations / deliberate deferrals
+- dependencies introduced (normally none)
+
+A development task is not complete merely because it compiles.
+
+## Tester role and defect loop
+- The tester task must run immediately after its paired development task.
+- Tester should not rewrite production code to make a task pass. It may add a minimal reproduction test only if it clearly documents a defect.
+- If a requirement fails, create `docs/defects/<TASK-ID>-<short-name>.md` using `00_DEFECT_TEMPLATE.txt`.
+- Classify defect severity:
+  - Critical: data loss, silent overwrite, crash in primary workflow.
+  - High: core workflow cannot be completed or result is incorrect.
+  - Medium: important behavior incorrect but safe workaround exists.
+  - Low: polish/documentation/non-blocking issue.
+- Critical and High defects block the next task. The developer must fix them and the same testing task must be re-run.
+- Medium/Low defects may be scheduled only if the tester explains why they do not threaten the phase gate.
+
+## Required commands for every tester task
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+If the task modifies the WPF app, launch it manually and execute the stated workflow. If command output differs because a tool version is unavailable, record the exact failure rather than inventing success.
+
+## End-of-testing evidence
+Create `docs/task-reports/<TASK-ID>_testing.md` containing:
+- pass / conditional pass / fail
+- commands run and their exit results
+- automated test coverage exercised
+- manual scenarios exercised
+- architecture/licence checks
+- defects created, with severity and reproduction summary
+- explicit recommendation: proceed / fix and re-test / stop for product-owner decision
+
+## Scope summary rule
+At the end of each scope, use its supplied summary prompt. Do not claim the scope is complete until the summary output is reviewed by the product owner.

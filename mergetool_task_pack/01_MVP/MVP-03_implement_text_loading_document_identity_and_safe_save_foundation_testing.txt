@@ -1,0 +1,38 @@
+Scope: 01_MVP
+Task: MVP-03
+
+# MVP-03 Testing Task
+## Headline
+Verify: Implement text loading, identity tokens, encoding/line-ending preservation, and atomic save foundation
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Exercise these cases through automated tests and at least one manual fixture set:
+- UTF-8 with BOM, UTF-8 without BOM, UTF-16 LE/BE with BOM, and documented ANSI fallback.
+- CRLF, LF, CR, mixed endings, empty file, and missing final newline.
+- invalid/ambiguous bytes and NUL-heavy data.
+- stale identity: load, alter bytes externally, then attempt save; overwrite must be refused.
+- successful save: confirm atomic save path does not leave a temp file after success/failure.
+
+Inspect source to confirm hash/identity checking uses bytes and that UI types are absent.
+
+## Failure conditions
+Fail for silent overwrite, lossy save without warning, wrong BOM/line-ending handling, a crash on expected user data error, or accidental binary comparison behavior.
+
+
+## Tester completion evidence
+Create `docs/task-reports/MVP-03_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

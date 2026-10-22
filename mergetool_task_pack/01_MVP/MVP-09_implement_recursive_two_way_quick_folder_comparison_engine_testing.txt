@@ -1,0 +1,40 @@
+Scope: 01_MVP
+Task: MVP-09
+
+# MVP-09 Testing Task
+## Headline
+Verify: Implement recursive 2-way quick folder comparison engine with accurate states
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Validate generated directory scenarios:
+- same relative name/length/UTC timestamp -> MetadataMatch
+- same name but length or timestamp differs -> MetadataDifferent
+- left-only/right-only at nested locations
+- one inaccessible or simulated-failure path yields a row diagnostic while other rows remain
+- cancellation stops a large generated scan safely
+- reparse point is skipped/not followed where environment permits
+- no expected user file path is silently excluded
+
+Inspect code for file content reads during quick scan; they should not occur.
+
+## Failure conditions
+Fail if metadata matches are labelled identical/same content, scanner follows reparse directories, hidden defaults exclude paths, cancellation leaves invalid state, or one error aborts all results.
+
+
+## Tester completion evidence
+Create `docs/task-reports/MVP-09_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

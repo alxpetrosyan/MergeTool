@@ -1,0 +1,49 @@
+<UserControl x:Class="MergeTool.App.Wpf.Controls.PathComboSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="Root">
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top"
+                   Text="{Binding LabelText, ElementName=Root}"
+                   Margin="0,0,0,2" Foreground="#FF555555" FontSize="11" />
+        <Button DockPanel.Dock="Right" Content="…" Width="28" Margin="4,0,0,0"
+                Command="{Binding BrowseCommand, ElementName=Root}"
+                ToolTip="Browse"
+                AutomationProperties.Name="{Binding BrowseAutomationName, ElementName=Root}" />
+        <ToggleButton x:Name="DropToggle" DockPanel.Dock="Right" Content="▾" Width="22" Margin="2,0,0,0"
+                      Checked="DropToggle_Checked" Unchecked="DropToggle_Unchecked"
+                      ToolTip="Recent and nearby paths"
+                      AutomationProperties.Name="{Binding DropDownAutomationName, ElementName=Root}" />
+        <Grid>
+            <TextBox x:Name="PathBox" Padding="4"
+                     Text="{Binding Text, ElementName=Root, UpdateSourceTrigger=PropertyChanged}"
+                     TextChanged="PathBox_TextChanged"
+                     PreviewKeyDown="PathBox_PreviewKeyDown"
+                     LostKeyboardFocus="PathBox_LostKeyboardFocus"
+                     AutomationProperties.Name="{Binding AutomationName, ElementName=Root}">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsPathInvalid, ElementName=Root}" Value="True">
+                                <Setter Property="BorderBrush" Value="#FFB00020" />
+                                <Setter Property="BorderThickness" Value="1.5" />
+                                <Setter Property="ToolTip" Value="Path does not exist." />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <Popup x:Name="SuggestionPopup"
+                   PlacementTarget="{Binding ElementName=PathBox}"
+                   Placement="Bottom" StaysOpen="False"
+                   Width="{Binding ActualWidth, ElementName=PathBox}"
+                   Closed="SuggestionPopup_Closed">
+                <Border Background="White" BorderBrush="#FF999999" BorderThickness="1">
+                    <ListBox x:Name="SuggestionList" MaxHeight="220" BorderThickness="0"
+                             MouseUp="SuggestionList_MouseUp"
+                             PreviewKeyDown="SuggestionList_PreviewKeyDown" />
+                </Border>
+            </Popup>
+        </Grid>
+    </DockPanel>
+</UserControl>

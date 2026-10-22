@@ -1,0 +1,31 @@
+# Defect: <TASK-ID> — <short title>
+
+## Severity
+Critical / High / Medium / Low
+
+## Environment
+- OS:
+- .NET SDK:
+- Commit/revision:
+- Build configuration:
+
+## Preconditions
+
+## Reproduction steps
+1.
+2.
+3.
+
+## Expected result
+
+## Actual result
+
+## Evidence
+- command output / exception / screenshot path / test name
+
+## Data-safety impact
+State explicitly whether files could be overwritten, deleted, corrupted, or only displayed incorrectly.
+
+## Suggested owner and retest
+- Development change expected:
+- Tester task to rerun:

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyTitle>MergeTool</AssemblyTitle>
+    <Product>MergeTool</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MergeTool.Core\MergeTool.Core.csproj" />
+    <ProjectReference Include="..\MergeTool.Text\MergeTool.Text.csproj" />
+    <ProjectReference Include="..\MergeTool.Folders\MergeTool.Folders.csproj" />
+    <ProjectReference Include="..\MergeTool.FileSystem\MergeTool.FileSystem.csproj" />
+    <ProjectReference Include="..\MergeTool.Application\MergeTool.Application.csproj" />
+  </ItemGroup>
+
+</Project>

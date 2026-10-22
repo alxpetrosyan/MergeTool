@@ -1,0 +1,43 @@
+# Review Notes — Corrections Made in This Revised Pack
+
+## Findings in the earlier pack
+The earlier plan had useful feature coverage but several points where an AI could drift, stop too early, or build components that do not work together.
+
+1. **No binding Phase-1 product gate.**
+   Individual tasks could pass while the app still lacked one integrated file-and-folder comparison workflow.
+
+2. **No explicit operation lifecycle.**
+   Background file/folder work, cancellation, stale results, and UI request replacement were deferred. That risks UI freezes and old results overwriting newer ones.
+
+3. **No stable merge precondition contract.**
+   A developer could apply a merge hunk after a document was edited or recomparison became stale, causing the wrong target range to be changed.
+
+4. **No defined display-to-source mapping.**
+   It was unclear how highlighted blocks, navigation, scrolling, and merge actions map from visual rows to original source lines.
+
+5. **Folder states could be misleading.**
+   A quick size/timestamp comparison labelled rows `Same`, which incorrectly implies equal contents. The revised model uses explicit metadata certainty labels.
+
+6. **Default exclusions could hide user files.**
+   Automatically ignoring `bin`, `obj`, `.git`, etc. is unsafe for a general compare tool. MVP has no hidden default exclusions.
+
+7. **Folder scanner safety was incomplete.**
+   Reparse points, cancellation, access-denied rows, path normalization, case handling, and partial scan results were not sufficiently defined.
+
+8. **Save safety was under-specified.**
+   Timestamp/length alone can miss an external overwrite. The revised pack requires a file-version token and atomic save behavior.
+
+9. **Editing semantics were unclear.**
+   Direct edits can invalidate comparison blocks. The revised MVP marks results stale and disables merge/navigation until explicit recompare.
+
+10. **Text/non-text behavior was unclear from folder rows.**
+    The revised pack requires text classification and an explicit user-facing outcome for non-text/undecodable files; it must not silently act like a binary compare tool.
+
+11. **Acceptance evidence was too weak.**
+    Every task now requires a task report, and testers must create reproducible defect records rather than vague notes.
+
+12. **Commercial-dependency control needed a hard gate.**
+    The revised pack requires centrally pinned package versions, lock files, and licence records before dependencies are accepted.
+
+## Result
+The revised pack makes Phase 1 a coherent, testable application rather than a collection of isolated engines and WPF screens.

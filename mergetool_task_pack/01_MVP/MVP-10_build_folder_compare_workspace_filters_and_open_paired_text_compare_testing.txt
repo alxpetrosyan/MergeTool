@@ -1,0 +1,37 @@
+Scope: 01_MVP
+Task: MVP-10
+
+# MVP-10 Testing Task
+## Headline
+Verify: Build folder comparison workspace, filters, and paired text-file opening
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Manually execute:
+1. Compare two small roots containing metadata match/different/left-only/right-only rows.
+2. Toggle All, Differences, Errors/Skipped filters and verify exact inclusion rules.
+3. Open a paired changed text row; verify left/right files appear in a File Compare tab with correct paths/content.
+4. Attempt to open a one-sided row and a non-text row; verify safe explanatory behavior.
+5. Cancel a larger generated folder scan and ensure UI returns to safe state with last completed result retained/clearly distinguished.
+6. Inspect grid columns/legend for metadata wording.
+
+## Failure conditions
+Fail if a paired file opens with wrong paths, filters hide/show incorrect states, UI claims content equality from metadata, or a single-sided/non-text row creates an invalid comparison.
+
+
+## Tester completion evidence
+Create `docs/task-reports/MVP-10_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

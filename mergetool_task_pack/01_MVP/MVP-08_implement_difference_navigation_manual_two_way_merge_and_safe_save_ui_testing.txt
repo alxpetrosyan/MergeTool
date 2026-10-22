@@ -1,0 +1,40 @@
+Scope: 01_MVP
+Task: MVP-08
+
+# MVP-08 Testing Task
+## Headline
+Verify: Implement navigation, manual 2-way merge commands, and safe-save UI
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Run automated tests plus these manual workflows:
+1. Modified hunk left-to-right; recompare; save; reload and verify disk contents.
+2. Inserted hunk copied in both directions.
+3. Deleted hunk copied in both directions.
+4. Attempt merge after typing in either pane without recompare; command must be unavailable/refused.
+5. Make target file externally different after loading; attempt save; no overwrite may occur.
+6. Test read-only target state and dirty-close prompt.
+7. Navigate first/last differences and verify no-wrap behavior is consistent.
+
+Inspect written bytes for expected target encoding/BOM/line-ending convention.
+
+## Failure conditions
+Fail for incorrect text replacement, wrong insertion anchor, data loss, silent overwrite, stale merge, or an enabled command with no valid target.
+
+
+## Tester completion evidence
+Create `docs/task-reports/MVP-08_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

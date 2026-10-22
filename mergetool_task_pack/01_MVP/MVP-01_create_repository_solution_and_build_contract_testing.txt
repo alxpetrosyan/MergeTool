@@ -1,0 +1,40 @@
+Scope: 01_MVP
+Task: MVP-01
+
+# MVP-01 Testing Task
+## Headline
+Verify: Create repository, solution, deterministic build contract, and project boundaries
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Validate from a clean checkout or clean clone.
+
+- Verify the required files exist and contain a real SDK/version/build configuration, not placeholders.
+- Confirm all solution projects build and all test projects execute.
+- Launch the WPF application and confirm it reaches a visible shell without a crash.
+- Inspect project references: non-WPF projects must have no WPF/AvalonEdit/System.Windows references.
+- Verify packages are centrally pinned and that package lock behavior is configured/documented.
+- Confirm the README names explicit product exclusions.
+
+## Failure conditions
+Fail for missing build scripts, unpinned packages, a WPF dependency in core code, an unlicensed dependency, or a shell that does not launch.
+
+Create the testing report and any defect records required by `00_DELIVERY_AND_TEST_PROTOCOL.txt`.
+
+
+## Tester completion evidence
+Create `docs/task-reports/MVP-01_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

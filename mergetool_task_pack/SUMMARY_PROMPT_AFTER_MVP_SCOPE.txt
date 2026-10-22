@@ -1,0 +1,28 @@
+You have completed Scope 1 (MVP) of a Windows-only manual text/folder comparison and merge application.
+
+Do not write new code in this response. Produce a factual engineering handover report for product/architecture review.
+
+Read and use:
+- all `docs/task-reports/MVP-*_development.md`
+- all `docs/task-reports/MVP-*_testing.md`
+- every open file under `docs/defects/`
+- `docs/mvp_acceptance.md`
+- `docs/DEPENDENCIES.md`
+- `00_PRODUCT_SCOPE_AND_PHASE_GATES.txt`
+
+Required response sections:
+1. Exact completed MVP behavior, mapped one-by-one to the Scope-1 gate.
+2. List of source projects/modules and each responsibility.
+3. End-to-end workflow walkthrough: file compare -> navigate -> manual copy -> stale/recompare -> safe save; folder compare -> filter -> paired file compare.
+4. Comparison correctness contract: line ranges, result revisions, stale merge prevention, display mapping.
+5. Folder semantics: explain exactly what `MetadataMatch` means and what it does NOT mean.
+6. Async/cancellation behavior and evidence.
+7. Encoding/line-ending/save-conflict behavior and evidence.
+8. Test commands run, counts/results, manual acceptance evidence, and untested areas.
+9. All dependency versions/licences and why each is present.
+10. Open defects grouped by severity and whether any block Scope 2.
+11. Architecture deviations from the task pack, with reasons.
+12. Honest known limitations and explicit exclusions still absent.
+13. Recommendation: PASS / CONDITIONAL PASS / FAIL for starting Scope 2.
+
+Do not claim a feature is implemented unless you name the files/tests/manual evidence that prove it. Include precise failure reasons if result is not PASS.

@@ -1,0 +1,28 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-04
+
+# ADV-04 Testing Task
+## Headline
+Verify: Add difference minimap and collapsible equal-region projection
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Verify minimap markers navigate to correct blocks; collapse preserves required context and navigation expands hidden targets safely. Confirm merge applies to source ranges, not collapsed display ranges.
+
+
+## Tester completion evidence
+Create `docs/task-reports/ADV-04_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

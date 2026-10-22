@@ -1,0 +1,37 @@
+Scope: 01_MVP
+Task: MVP-06
+
+# MVP-06 Testing Task
+## Headline
+Verify: Build WPF shell, workspace tabs, and async UI state
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Launch the WPF app and verify:
+- File Compare and Folder Compare are discoverable from the same shell.
+- Busy/progress/cancel states can be exercised through a controlled simulated operation or test hook and return to a safe state.
+- Errors show readable messages rather than a crash/stack trace.
+- Closing a workspace with no document changes is safe.
+
+Inspect view models and project references to ensure operations are not reimplemented in code-behind.
+
+## Failure conditions
+Fail if UI is split into disconnected apps/windows, cancel does nothing, a simulated error crashes the app, or long-operation handling bypasses the application layer.
+
+
+## Tester completion evidence
+Create `docs/task-reports/MVP-06_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

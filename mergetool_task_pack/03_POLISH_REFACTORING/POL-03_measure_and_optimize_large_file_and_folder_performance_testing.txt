@@ -1,0 +1,28 @@
+Scope: 03_POLISH_REFACTORING
+Task: POL-03
+
+# POL-03 Testing Task
+## Headline
+Verify: Measure and optimize large file/folder performance
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Run performance smoke suite on stated machine, compare to documented baseline, verify cancellation responsiveness and no UI freeze. Report regressions with reproducible data rather than subjective impressions.
+
+
+## Tester completion evidence
+Create `docs/task-reports/POL-03_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

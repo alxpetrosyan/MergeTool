@@ -1,0 +1,20 @@
+You have completed Scope 2 (Extra and advanced features) for the Windows-only manual text/folder comparison and merge tool.
+
+Do not write new code. Produce a factual engineering handover for architecture review.
+
+Read all task reports/defects and the relevant task files, then report:
+1. MVP behavior still working: evidence that advanced work did not regress it.
+2. Each advanced feature implemented, exact user workflow, and hard boundaries.
+3. Whether any feature accidentally became automatic merge/synchronization.
+4. 3-way comparison and output-merge model: sources, output, resolution state, save safety.
+5. Folder-operation safety: plan/preview/preconditions/cancel/errors/Recycle Bin behavior.
+6. Rules/projection mapping: original text preservation and merge behavior.
+7. Hash/content semantics vs quick metadata semantics.
+8. Performance/cancellation evidence for advanced operations.
+9. Dependencies/licences newly added or changed.
+10. Tests/manual evidence and gaps.
+11. Open defects/risks, grouped by severity.
+12. Architecture debt and recommended Polish tasks.
+13. Recommendation: PASS / CONDITIONAL PASS / FAIL for Scope 3.
+
+Be concrete. Name modules, test cases, reports, and limitations. Do not report aspirational features as completed.

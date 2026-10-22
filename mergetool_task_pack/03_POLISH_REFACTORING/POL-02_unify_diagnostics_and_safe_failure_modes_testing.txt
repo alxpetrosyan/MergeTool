@@ -1,0 +1,28 @@
+Scope: 03_POLISH_REFACTORING
+Task: POL-02
+
+# POL-02 Testing Task
+## Headline
+Verify: Unify diagnostics and safe failure modes
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Force representative errors and confirm no crash, no data loss, clear recovery action, and useful technical diagnostic. Verify last completed result remains intact after a failed/cancelled new operation.
+
+
+## Tester completion evidence
+Create `docs/task-reports/POL-02_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

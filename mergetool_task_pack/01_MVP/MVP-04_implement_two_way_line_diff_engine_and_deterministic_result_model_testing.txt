@@ -1,0 +1,42 @@
+Scope: 01_MVP
+Task: MVP-04
+
+# MVP-04 Testing Task
+## Headline
+Verify: Implement 2-way line diff engine and deterministic result model
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Run deterministic tests for:
+- identical inputs
+- one changed line
+- insertion at start/middle/end
+- deletion at start/middle/end
+- empty left/right/both
+- adjacent modifications
+- repeated equal lines that could cause bad alignment
+- source-code-like text with several separated blocks
+- same inputs repeated multiple times must produce same block sequence/ranges
+
+Inspect the result model for 0-based `[start,length]` consistency and verify UI dependencies are absent.
+
+## Failure conditions
+Fail if a block maps to incorrect source lines, output is nondeterministic, empty/repeated-line cases crash, or `Modified` semantics are undocumented/unstable.
+
+
+## Tester completion evidence
+Create `docs/task-reports/MVP-04_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

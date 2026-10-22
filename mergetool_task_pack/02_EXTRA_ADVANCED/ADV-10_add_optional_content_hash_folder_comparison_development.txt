@@ -1,0 +1,24 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-10
+
+# ADV-10 Development Task
+## Headline
+Add optional content/hash folder comparison and timestamp tolerance
+
+
+## Objective
+Offer stronger folder-comparison certainty when user selects it.
+
+## Developer instructions
+Add explicit modes: Quick Metadata, Content Hash. Add configurable timestamp tolerance only to quick metadata mode. Hash mode must calculate SHA-256 asynchronously with progress/cancellation and cache only within current session unless later settings explicitly permit persistence. Results must display `ContentMatch`/`ContentDifferent` distinctly from metadata states.
+
+Do not make hash comparison default in MVP-like workflows. Avoid loading entire files into memory just to hash.
+
+## Drift prevention
+No binary visual diff, archive traversal, global hash database, or automatic sync decision.
+
+## Mandatory completion evidence
+- Add/update automated tests for the change.
+- Run Debug and Release build/test commands.
+- Create the required development report under `docs/task-reports/`.
+- Do not start the next task until the paired testing task has passed.

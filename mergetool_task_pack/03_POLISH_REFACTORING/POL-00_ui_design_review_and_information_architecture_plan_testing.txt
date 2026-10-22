@@ -1,0 +1,66 @@
+Scope: 03_POLISH_REFACTORING
+Task: POL-00
+
+# POL-00 Testing Task
+## Headline
+Verify: UI design review is complete, evidence-based, and safe to implement in later polish work
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+If the known full-suite VSTEST timeout still occurs, use the repository-approved bounded test script as the temporary fallback and record both the failed direct command and the fallback result. Do not label the direct timeout as resolved unless it is reproducibly fixed.
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm that no unexpected package, architecture, or scope change was introduced.
+
+## Tester instructions
+Review `docs/ui/POL-00_ui_design_review.md` against the live application and task requirements.
+
+Verify all of the following:
+1. The review covers each required scenario or clearly documents why a scenario was unavailable.
+2. The review includes observations at 100%, 125%, and 150% DPI scaling, or explicitly documents a machine/environment limitation.
+3. The proposed target layouts cover:
+   - 2-way file comparison;
+   - 3-way file comparison with output;
+   - folder comparison.
+4. The command inventory accounts for all currently visible file-compare, folder-compare, navigation, merge, save, search, filter, and panel commands.
+5. The plan does not accidentally remove a workflow needed for:
+   - open/compare;
+   - next/previous difference;
+   - copy left-to-right/right-to-left;
+   - safe save;
+   - folder filtering;
+   - opening a paired file comparison;
+   - manual 3-way resolution.
+6. The plan keeps high-frequency actions immediately reachable and moves low-frequency controls into compact/discoverable locations.
+7. The plan preserves keyboard access and accessibility intent.
+8. The plan does not introduce prohibited scope: ribbon, theme editor, paid UI suite, new UI framework, VCS integration, reports, printing, or unrelated features.
+9. The recommended POL-04 work is bounded, prioritized, and testable rather than a vague visual rewrite.
+10. Any source changes are limited to the allowed review boundary and do not degrade the current application.
+
+## Required defect handling
+Create a defect using `00_DEFECT_TEMPLATE.txt` for any of the following:
+- required workflow has no planned location after redesign;
+- an essential command is hidden without a discoverable replacement;
+- the proposed layout cannot accommodate 3-way output merge;
+- a required state is visually ambiguous;
+- an unexpected dependency or architecture change was added;
+- the document lacks sufficient evidence to guide POL-04.
+
+## Tester completion evidence
+Create `docs/task-reports/POL-00_testing.md` containing:
+- PASS / CONDITIONAL PASS / FAIL verdict;
+- commands run and results;
+- reviewed scenarios and DPI scales;
+- confirmation that command inventory is complete;
+- defects created, if any;
+- specific approved Required-for-release items that POL-04 must implement;
+- recommendation whether POL-01 may begin.
+
+Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

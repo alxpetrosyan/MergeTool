@@ -1,0 +1,24 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-06
+
+# ADV-06 Development Task
+## Headline
+Add manual folder copy/delete operations with preview
+
+
+## Objective
+Add safe user-controlled folder synchronization actions; no automatic rules.
+
+## Developer instructions
+Create `FolderOperationPlan` with immutable items, expected file identities/preconditions, and operations: copy left-to-right, copy right-to-left, delete left, delete right. Build/validate plan before executing. Use normalized roots/relative paths, prevent root escapes/path traversal, preserve source bytes, create directories, and stop individual failures safely while continuing unrelated items where possible.
+
+UI requires row selection, preview dialog of exact actions, explicit confirmation, progress/cancel, error results, and recompare afterwards. Delete must use Recycle Bin where possible; permanent fallback needs explicit additional confirmation.
+
+## Drift prevention
+No automatic folder merge, rule scheduler, mirror mode, background watcher, or undo promise beyond Recycle Bin behavior.
+
+## Mandatory completion evidence
+- Add/update automated tests for the change.
+- Run Debug and Release build/test commands.
+- Create the required development report under `docs/task-reports/`.
+- Do not start the next task until the paired testing task has passed.

@@ -1,0 +1,28 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-10
+
+# ADV-10 Testing Task
+## Headline
+Verify: Add optional content/hash folder comparison and timestamp tolerance
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Verify identical bytes with different timestamps yield content match in hash mode, same metadata but different bytes yield content different, cancellation is safe, and quick-mode labels remain distinct. Validate hash streams data rather than reading entire test file into one huge buffer.
+
+
+## Tester completion evidence
+Create `docs/task-reports/ADV-10_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

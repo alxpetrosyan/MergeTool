@@ -1,0 +1,204 @@
+<UserControl x:Class="MergeTool.App.Wpf.Views.FileCompareView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:views="clr-namespace:MergeTool.App.Wpf.Views"
+             xmlns:controls="clr-namespace:MergeTool.App.Wpf.Controls"
+             Focusable="True">
+    <UserControl.InputBindings>
+        <KeyBinding Key="F7" Command="{Binding NextDifferenceCommand}" />
+        <KeyBinding Key="F7" Modifiers="Shift" Command="{Binding PreviousDifferenceCommand}" />
+        <KeyBinding Key="F5" Command="{Binding RecompareCommand}" />
+        <KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAllCommand}" />
+        <KeyBinding Key="F3" Command="{Binding FindNextCommand}" />
+        <KeyBinding Key="F3" Modifiers="Shift" Command="{Binding FindPreviousCommand}" />
+        <KeyBinding Key="F" Modifiers="Control" Command="{Binding ShowFindPanelCommand}" />
+    </UserControl.InputBindings>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        <views:NullToVisibilityConverter x:Key="NullToCollapsed" />
+        <Style x:Key="PaneHeaderText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="#FF555555" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,10,0" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Path selector row: editable combos with browse, recents, and child completion -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <controls:PathComboSelector Grid.Column="0" Margin="0,0,6,0"
+                                        LabelText="Left file"
+                                        Text="{Binding LeftPath}"
+                                        Kind="File"
+                                        RecentPaths="{Binding RecentPaths}"
+                                        BrowseCommand="{Binding ChooseLeftFileCommand}"
+                                        AutomationName="Left file path"
+                                        BrowseAutomationName="Choose left file"
+                                        DropDownAutomationName="Left path suggestions" />
+            <controls:PathComboSelector Grid.Column="1" Margin="6,0,0,0"
+                                        LabelText="Right file"
+                                        Text="{Binding RightPath}"
+                                        Kind="File"
+                                        RecentPaths="{Binding RecentPaths}"
+                                        BrowseCommand="{Binding ChooseRightFileCommand}"
+                                        AutomationName="Right file path"
+                                        BrowseAutomationName="Choose right file"
+                                        DropDownAutomationName="Right path suggestions" />
+        </Grid>
+
+        <!-- Review strip: navigation position, profile/rules badges, compact pane status -->
+        <DockPanel Grid.Row="1" Margin="0,6,0,0">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal"
+                            Visibility="{Binding LeftPane, Converter={StaticResource NullToCollapsed}}">
+                    <TextBlock Style="{StaticResource PaneHeaderText}" FontWeight="SemiBold"
+                               Text="{Binding ComparisonProjectionLabel}" Foreground="#FF1A6FB5"
+                               Visibility="{Binding ComparisonProjectionLabel, Converter={StaticResource NullToCollapsed}}" />
+                    <TextBlock Style="{StaticResource PaneHeaderText}" FontWeight="SemiBold"
+                               Text="{Binding ActiveRulesBadge}" Foreground="#FF1A6FB5" />
+                    <TextBlock Style="{StaticResource PaneHeaderText}" FontWeight="SemiBold"
+                               Text="{Binding LeftPane.StatusBadge}" Foreground="#FFB05A00" />
+                    <TextBlock Style="{StaticResource PaneHeaderText}" Text="{Binding LeftPane.EncodingDisplay}" />
+                    <TextBlock Style="{StaticResource PaneHeaderText}" Margin="12,0,0,0" FontWeight="SemiBold"
+                               Text="{Binding RightPane.StatusBadge}" Foreground="#FFB05A00" />
+                    <TextBlock Style="{StaticResource PaneHeaderText}" Text="{Binding RightPane.EncodingDisplay}" />
+                </StackPanel>
+                <Button Content="Reveal selection" Command="{Binding ExpandSelectedCollapsedCommand}" Padding="8,2" Margin="4,0,0,0"
+                        AutomationProperties.Name="Reveal collapsed region for selected difference" />
+                <Button Content="Difference panel" Command="{Binding ToggleDifferenceRailCommand}" Padding="8,2" Margin="4,0,0,0"
+                        ToolTip="Show or hide the difference list and minimap."
+                        AutomationProperties.Name="Toggle difference panel" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding ProfileBadge}" VerticalAlignment="Center"
+                           Foreground="#FF1A6FB5" FontWeight="SemiBold" Margin="0,0,10,0" />
+                <TextBlock Text="{Binding NavigationText}" VerticalAlignment="Center"
+                           Foreground="#FF555555" />
+            </StackPanel>
+        </DockPanel>
+
+        <!-- State banner: stale / dirty / read-only / formatted -->
+        <Border Grid.Row="2" Margin="0,6,0,0" Padding="8,4" Background="#FFFFF4E5" BorderBrush="#FFE0C48C"
+                BorderThickness="1" CornerRadius="3"
+                Visibility="{Binding ShowStateBanner, Converter={StaticResource BoolToVisibility}}">
+            <TextBlock Text="{Binding StateBannerText}" TextWrapping="Wrap" Foreground="#FF8A4B00" FontWeight="SemiBold" />
+        </Border>
+
+        <!-- Find and go-to (collapsed by default; opened from ribbon Find or Ctrl+F) -->
+        <Expander Grid.Row="3" Header="Find &amp; go" Margin="0,6,0,0" IsExpanded="{Binding IsFindPanelExpanded, Mode=TwoWay}">
+            <StackPanel Margin="0,6,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <WrapPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,12,0">
+                        <TextBox Text="{Binding SearchPattern, UpdateSourceTrigger=PropertyChanged}"
+                                 Padding="4" MinWidth="160" Width="200" Margin="0,0,8,4"
+                                 AutomationProperties.Name="Search pattern"
+                                 ToolTip="Search in document text (Ctrl+F to open this panel)." />
+                        <Button Content="◀" Command="{Binding FindPreviousCommand}" Width="28" Padding="2" Margin="0,0,4,4"
+                                ToolTip="Find previous (Shift+F3)" AutomationProperties.Name="Find previous" />
+                        <Button Content="▶" Command="{Binding FindNextCommand}" Width="28" Padding="2" Margin="0,0,8,4"
+                                ToolTip="Find next (F3)" AutomationProperties.Name="Find next" />
+                        <CheckBox Content="Regex" IsChecked="{Binding UseRegexSearch}" Margin="0,0,8,4" VerticalAlignment="Center" />
+                        <CheckBox Content="Ignore case" IsChecked="{Binding IgnoreCaseSearch}" Margin="0,0,8,4" VerticalAlignment="Center" />
+                        <CheckBox Content="Whole word" IsChecked="{Binding WholeWordSearch}" Margin="0,0,8,4" VerticalAlignment="Center" />
+                        <CheckBox Content="Changed lines only" IsChecked="{Binding ChangedLinesOnlySearch}" Margin="0,0,8,4" VerticalAlignment="Center" />
+                        <TextBlock Text="Pane" VerticalAlignment="Center" Margin="0,0,4,4" Foreground="#FF555555" />
+                        <ComboBox ItemsSource="{Binding SearchPaneFilters}" SelectedItem="{Binding SearchPane}" Width="80" Margin="0,0,0,4" />
+                    </WrapPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                        <TextBlock Text="Go to line" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#FF555555" />
+                        <TextBox Text="{Binding GoToLineText, UpdateSourceTrigger=PropertyChanged}" Width="56" Padding="4"
+                                 AutomationProperties.Name="Go to line number" />
+                        <ComboBox ItemsSource="{Binding GoToLineSides}" SelectedItem="{Binding GoToLineSide}" Width="70" Margin="6,0,0,0" />
+                        <Button Content="Go" Command="{Binding GoToLineCommand}" Padding="10,3" Margin="6,0,0,0"
+                                AutomationProperties.Name="Go to line" />
+                    </StackPanel>
+                </Grid>
+                <TextBlock Text="{Binding SearchStatusText}" Foreground="#FF555555" FontSize="11" Margin="0,4,0,0"
+                           Visibility="{Binding SearchStatusText, Converter={StaticResource NullToCollapsed}}" />
+            </StackPanel>
+        </Expander>
+
+        <views:DiagnosticsPanel Grid.Row="4" Margin="0,6,0,0" />
+
+        <!-- Comparison area: dominant editor panes, optional difference rail -->
+        <Grid Grid.Row="5" Margin="0,6,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <avalonedit:TextEditor x:Name="LeftEditor" Grid.Column="0"
+                                   ShowLineNumbers="True" FontFamily="Consolas" FontSize="13"
+                                   WordWrap="False"
+                                   HorizontalScrollBarVisibility="Auto"
+                                   VerticalScrollBarVisibility="Auto"
+                                   BorderBrush="#FFCCCCCC" BorderThickness="1"
+                                   AutomationProperties.Name="Left document" />
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="Transparent" />
+            <avalonedit:TextEditor x:Name="RightEditor" Grid.Column="2"
+                                   ShowLineNumbers="True" FontFamily="Consolas" FontSize="13"
+                                   WordWrap="False"
+                                   HorizontalScrollBarVisibility="Auto"
+                                   VerticalScrollBarVisibility="Auto"
+                                   BorderBrush="#FFCCCCCC" BorderThickness="1"
+                                   AutomationProperties.Name="Right document" />
+            <Grid Grid.Column="3" Margin="4,0,0,0"
+                  Visibility="{Binding IsDifferenceRailVisible, Converter={StaticResource BoolToVisibility}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0" Margin="0,0,4,0">
+                    <TextBlock DockPanel.Dock="Top" Text="Differences" FontSize="11" Foreground="#FF555555" Margin="0,0,0,4" />
+                    <ListBox ItemsSource="{Binding DifferenceList}"
+                             SelectedItem="{Binding SelectedDifferenceListEntry, Mode=TwoWay}"
+                             DisplayMemberPath="DisplayText"
+                             BorderBrush="#FFCCCCCC" BorderThickness="1"
+                             AutomationProperties.Name="Difference list" />
+                </DockPanel>
+                <views:DifferenceMinimapControl x:Name="Minimap" Grid.Column="1" VerticalAlignment="Stretch" />
+            </Grid>
+        </Grid>
+
+        <!-- Legend, summary, known limitation -->
+        <DockPanel Grid.Row="6" Margin="0,6,0,0">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Border Background="#FFDDF4DD" Width="14" Height="14" Margin="0,0,3,0" />
+                <TextBlock Text="Inserted" Style="{StaticResource PaneHeaderText}" />
+                <Border Background="#FFF8DEDE" Width="14" Height="14" Margin="0,0,3,0" />
+                <TextBlock Text="Deleted" Style="{StaticResource PaneHeaderText}" />
+                <Border Background="#FFFCF0CE" Width="14" Height="14" Margin="0,0,3,0" />
+                <TextBlock Text="Modified" Style="{StaticResource PaneHeaderText}" Margin="0,0,12,0" />
+                <Border Background="#FF7B5EC8" Width="14" Height="14" Margin="0,0,3,0" />
+                <TextBlock Text="Moved marker" Style="{StaticResource PaneHeaderText}" Margin="0" />
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="{Binding SummaryText, TargetNullValue='Choose two text files and press Compare.'}"
+                           TextWrapping="Wrap" Foreground="#FF444444" />
+                <TextBlock Text="{Binding KnownLimitationText}" TextWrapping="Wrap"
+                           FontSize="11" Foreground="#FF888888" Margin="0,2,0,0" />
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</UserControl>

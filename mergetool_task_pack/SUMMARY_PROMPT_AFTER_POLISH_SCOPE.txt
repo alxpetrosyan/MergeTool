@@ -1,0 +1,19 @@
+You have completed Scope 3 (Polish and refactoring) for the Windows-only manual text/folder comparison and merge tool.
+
+Do not write new code. Produce a release-candidate assessment for CEO/CTO/architecture review.
+
+Required sections:
+1. Final feature matrix: implemented / deliberately excluded / partially implemented.
+2. Architecture overview and dependency direction, including any intentional deviations.
+3. Commercial-readiness/licence inventory with exact package versions and licence evidence.
+4. Data-safety assessment: merge preconditions, save conflicts, atomic writes, folder operation preview/delete policy.
+5. Correctness assessment: text diff, merge, 3-way manual output, folder quick/hash semantics.
+6. Performance evidence and limits.
+7. Accessibility/keyboard/DPI evidence.
+8. Portable publish verification and environment requirements.
+9. Automated/manual acceptance evidence, with exact commands and outcomes.
+10. All remaining defects, severity, workarounds, and release recommendation.
+11. Top technical debt/backlog items explicitly outside this product scope.
+12. Final decision: RELEASE CANDIDATE PASS / CONDITIONAL PASS / FAIL.
+
+Be evidence-led and honest. Do not conceal regressions, licences needing review, or untested data-loss paths.

@@ -1,0 +1,114 @@
+# Revised Task Pack Index
+
+## How to use
+Complete every development task followed immediately by its paired testing task. A failed test blocks the next numbered task unless the protocol explicitly allows deferral.
+
+## Scope 1 — MVP (must result in a working file and folder comparison tool)
+- MVP-01: Create repository, solution, deterministic build contract, and project boundaries
+  - 01_MVP/MVP-01_create_repository_solution_and_build_contract_development.txt
+  - 01_MVP/MVP-01_create_repository_solution_and_build_contract_testing.txt
+- MVP-02: Implement core contracts, diagnostics, and cancellable operation lifecycle
+  - 01_MVP/MVP-02_implement_core_contracts_diagnostics_and_operation_lifecycle_development.txt
+  - 01_MVP/MVP-02_implement_core_contracts_diagnostics_and_operation_lifecycle_testing.txt
+- MVP-03: Implement text loading, identity tokens, encoding/line-ending preservation, and atomic save foundation
+  - 01_MVP/MVP-03_implement_text_loading_document_identity_and_safe_save_foundation_development.txt
+  - 01_MVP/MVP-03_implement_text_loading_document_identity_and_safe_save_foundation_testing.txt
+- MVP-04: Implement 2-way line diff engine and deterministic result model
+  - 01_MVP/MVP-04_implement_two_way_line_diff_engine_and_deterministic_result_model_development.txt
+  - 01_MVP/MVP-04_implement_two_way_line_diff_engine_and_deterministic_result_model_testing.txt
+- MVP-05: Implement editable comparison sessions, presentation mapping, and stale-result contract
+  - 01_MVP/MVP-05_implement_comparison_session_presentation_mapping_and_stale_result_contract_development.txt
+  - 01_MVP/MVP-05_implement_comparison_session_presentation_mapping_and_stale_result_contract_testing.txt
+- MVP-06: Build WPF shell, workspace tabs, and async UI state
+  - 01_MVP/MVP-06_build_wpf_shell_workspaces_and_async_ui_state_development.txt
+  - 01_MVP/MVP-06_build_wpf_shell_workspaces_and_async_ui_state_testing.txt
+- MVP-07: Implement 2-way file comparison workspace, semantic rendering, and scroll mapping
+  - 01_MVP/MVP-07_implement_two_way_file_compare_workspace_rendering_and_scroll_mapping_development.txt
+  - 01_MVP/MVP-07_implement_two_way_file_compare_workspace_rendering_and_scroll_mapping_testing.txt
+- MVP-08: Implement navigation, manual 2-way merge commands, and safe-save UI
+  - 01_MVP/MVP-08_implement_difference_navigation_manual_two_way_merge_and_safe_save_ui_development.txt
+  - 01_MVP/MVP-08_implement_difference_navigation_manual_two_way_merge_and_safe_save_ui_testing.txt
+- MVP-09: Implement recursive 2-way quick folder comparison engine with accurate states
+  - 01_MVP/MVP-09_implement_recursive_two_way_quick_folder_comparison_engine_development.txt
+  - 01_MVP/MVP-09_implement_recursive_two_way_quick_folder_comparison_engine_testing.txt
+- MVP-10: Build folder comparison workspace, filters, and paired text-file opening
+  - 01_MVP/MVP-10_build_folder_compare_workspace_filters_and_open_paired_text_compare_development.txt
+  - 01_MVP/MVP-10_build_folder_compare_workspace_filters_and_open_paired_text_compare_testing.txt
+- MVP-11: Stabilize integrated MVP and execute the Phase-1 release gate
+  - 01_MVP/MVP-11_stabilize_end_to_end_mvp_and_execute_release_gate_development.txt
+  - 01_MVP/MVP-11_stabilize_end_to_end_mvp_and_execute_release_gate_testing.txt
+
+## Scope 2 — Extra and advanced features
+- ADV-01: Add bounded intraline diff rendering
+  - 02_EXTRA_ADVANCED/ADV-01_add_bounded_intraline_diff_development.txt
+  - 02_EXTRA_ADVANCED/ADV-01_add_bounded_intraline_diff_testing.txt
+- ADV-02: Add comparison rules with projection-safe normalization
+  - 02_EXTRA_ADVANCED/ADV-02_add_comparison_rules_and_projection_safe_normalization_development.txt
+  - 02_EXTRA_ADVANCED/ADV-02_add_comparison_rules_and_projection_safe_normalization_testing.txt
+- ADV-03: Add data-driven file-type profiles and syntax highlighting
+  - 02_EXTRA_ADVANCED/ADV-03_add_file_type_profiles_and_syntax_highlighting_development.txt
+  - 02_EXTRA_ADVANCED/ADV-03_add_file_type_profiles_and_syntax_highlighting_testing.txt
+- ADV-04: Add difference minimap and collapsible equal-region projection
+  - 02_EXTRA_ADVANCED/ADV-04_add_minimap_and_collapsible_equal_regions_development.txt
+  - 02_EXTRA_ADVANCED/ADV-04_add_minimap_and_collapsible_equal_regions_testing.txt
+- ADV-05: Add search, go-to-line, and difference list
+  - 02_EXTRA_ADVANCED/ADV-05_add_search_goto_line_and_difference_list_development.txt
+  - 02_EXTRA_ADVANCED/ADV-05_add_search_goto_line_and_difference_list_testing.txt
+- ADV-06: Add manual folder copy/delete operations with preview
+  - 02_EXTRA_ADVANCED/ADV-06_add_manual_folder_operations_with_preview_development.txt
+  - 02_EXTRA_ADVANCED/ADV-06_add_manual_folder_operations_with_preview_testing.txt
+- ADV-07: Add 3-way text comparison model and inspection UI
+  - 02_EXTRA_ADVANCED/ADV-07_add_three_way_text_comparison_model_development.txt
+  - 02_EXTRA_ADVANCED/ADV-07_add_three_way_text_comparison_model_testing.txt
+- ADV-08: Add manual 3-way output merge and resolution workflow
+  - 02_EXTRA_ADVANCED/ADV-08_add_manual_three_way_output_merge_development.txt
+  - 02_EXTRA_ADVANCED/ADV-08_add_manual_three_way_output_merge_testing.txt
+- ADV-09: Add 3-way folder comparison
+  - 02_EXTRA_ADVANCED/ADV-09_add_three_way_folder_comparison_development.txt
+  - 02_EXTRA_ADVANCED/ADV-09_add_three_way_folder_comparison_testing.txt
+- ADV-10: Add optional content/hash folder comparison and timestamp tolerance
+  - 02_EXTRA_ADVANCED/ADV-10_add_optional_content_hash_folder_comparison_development.txt
+  - 02_EXTRA_ADVANCED/ADV-10_add_optional_content_hash_folder_comparison_testing.txt
+- ADV-11: Add settings, recents, and pinned comparison entries
+  - 02_EXTRA_ADVANCED/ADV-11_add_settings_recents_and_pinned_sessions_development.txt
+  - 02_EXTRA_ADVANCED/ADV-11_add_settings_recents_and_pinned_sessions_testing.txt
+- ADV-12: Add safe JSON/XML formatted comparison projection
+  - 02_EXTRA_ADVANCED/ADV-12_add_json_xml_formatted_comparison_projection_development.txt
+  - 02_EXTRA_ADVANCED/ADV-12_add_json_xml_formatted_comparison_projection_testing.txt
+- ADV-13: Add moved-block and renamed-file assistance
+  - 02_EXTRA_ADVANCED/ADV-13_add_moved_block_and_renamed_file_assistance_development.txt
+  - 02_EXTRA_ADVANCED/ADV-13_add_moved_block_and_renamed_file_assistance_testing.txt
+
+## Scope 3 — Polish and refactoring
+- POL-00: Review UI design and define the information-architecture plan for final polish
+  - 03_POLISH_REFACTORING/POL-00_ui_design_review_and_information_architecture_plan_development.txt
+  - 03_POLISH_REFACTORING/POL-00_ui_design_review_and_information_architecture_plan_testing.txt
+- POL-01: Harden architecture and review public APIs
+  - 03_POLISH_REFACTORING/POL-01_architecture_hardening_and_public_api_review_development.txt
+  - 03_POLISH_REFACTORING/POL-01_architecture_hardening_and_public_api_review_testing.txt
+- POL-02: Unify diagnostics and safe failure modes
+  - 03_POLISH_REFACTORING/POL-02_unify_diagnostics_and_safe_failure_modes_development.txt
+  - 03_POLISH_REFACTORING/POL-02_unify_diagnostics_and_safe_failure_modes_testing.txt
+- POL-03: Measure and optimize large file/folder performance
+  - 03_POLISH_REFACTORING/POL-03_measure_and_optimize_large_file_and_folder_performance_development.txt
+  - 03_POLISH_REFACTORING/POL-03_measure_and_optimize_large_file_and_folder_performance_testing.txt
+- POL-04: Implement the approved POL-00 UI information-architecture improvements, then perform usability, accessibility, keyboard, and High-DPI pass
+  - 03_POLISH_REFACTORING/POL-04_usability_accessibility_keyboard_and_high_dpi_pass_development.txt
+  - 03_POLISH_REFACTORING/POL-04_usability_accessibility_keyboard_and_high_dpi_pass_testing.txt
+- POL-05: Expand regression, golden, and property-focused tests
+  - 03_POLISH_REFACTORING/POL-05_expand_regression_golden_and_property_tests_development.txt
+  - 03_POLISH_REFACTORING/POL-05_expand_regression_golden_and_property_tests_testing.txt
+- POL-06: Review dependencies, assets, and excluded-feature compliance
+  - 03_POLISH_REFACTORING/POL-06_dependency_asset_and_excluded_feature_compliance_review_development.txt
+  - 03_POLISH_REFACTORING/POL-06_dependency_asset_and_excluded_feature_compliance_review_testing.txt
+- POL-07: Prepare portable Windows publish and user documentation
+  - 03_POLISH_REFACTORING/POL-07_portable_publish_and_user_documentation_development.txt
+  - 03_POLISH_REFACTORING/POL-07_portable_publish_and_user_documentation_testing.txt
+- POL-08: Run final release-candidate acceptance and backlog triage
+  - 03_POLISH_REFACTORING/POL-08_final_release_candidate_acceptance_and_backlog_triage_development.txt
+  - 03_POLISH_REFACTORING/POL-08_final_release_candidate_acceptance_and_backlog_triage_testing.txt
+
+## Scope summary prompts
+- SUMMARY_PROMPT_AFTER_MVP_SCOPE.txt
+- SUMMARY_PROMPT_AFTER_ADV_SCOPE.txt
+- SUMMARY_PROMPT_AFTER_POLISH_SCOPE.txt

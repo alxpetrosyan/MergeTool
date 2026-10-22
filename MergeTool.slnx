@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MergeTool.App.Wpf/MergeTool.App.Wpf.csproj" />
+    <Project Path="src/MergeTool.Application/MergeTool.Application.csproj" />
+    <Project Path="src/MergeTool.Core/MergeTool.Core.csproj" />
+    <Project Path="src/MergeTool.FileSystem/MergeTool.FileSystem.csproj" />
+    <Project Path="src/MergeTool.Folders/MergeTool.Folders.csproj" />
+    <Project Path="src/MergeTool.Text/MergeTool.Text.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/MergeTool.App.Wpf.Tests/MergeTool.App.Wpf.Tests.csproj" />
+    <Project Path="tests/MergeTool.Application.Tests/MergeTool.Application.Tests.csproj" />
+    <Project Path="tests/MergeTool.Core.Tests/MergeTool.Core.Tests.csproj" />
+    <Project Path="tests/MergeTool.Folders.Tests/MergeTool.Folders.Tests.csproj" />
+    <Project Path="tests/MergeTool.Text.Tests/MergeTool.Text.Tests.csproj" />
+  </Folder>
+</Solution>

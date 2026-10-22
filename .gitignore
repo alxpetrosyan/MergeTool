@@ -1,0 +1,19 @@
+# Build output
+bin/
+obj/
+artifacts/
+publish/
+
+# User/IDE files
+*.user
+*.suo
+.vs/
+.vscode/
+.idea/
+
+# Test results
+TestResults/
+*.trx
+
+# Misc
+*.log

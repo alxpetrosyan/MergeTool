@@ -1,0 +1,28 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-06
+
+# ADV-06 Testing Task
+## Headline
+Verify: Add manual folder copy/delete operations with preview
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Test plan validation, missing parent creation, overwrite confirmation, identity mismatch before execute, locked/denied file partial failure, cancellation, Recycle Bin behavior (or explicit unavailable diagnostic), and root-escape prevention. Confirm no operation runs before preview confirmation.
+
+
+## Tester completion evidence
+Create `docs/task-reports/ADV-06_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

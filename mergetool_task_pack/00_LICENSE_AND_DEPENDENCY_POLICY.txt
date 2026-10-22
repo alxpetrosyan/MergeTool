@@ -1,0 +1,41 @@
+# Licence and Dependency Policy
+
+## Goal
+Keep the product commercially usable and lightweight. This document is an engineering control, not legal advice.
+
+## Default allowed licences
+- MIT
+- Apache-2.0
+- BSD-2-Clause / BSD-3-Clause
+
+## Requires explicit owner review before use
+- LGPL / MPL / EPL / MS-PL
+- dual-licensed packages
+- any package whose NuGet metadata, repository, or transitive licence is unclear
+- externally supplied icons, fonts, code snippets, test datasets, or generated assets
+
+## Not allowed without explicit written owner approval
+- GPL
+- AGPL
+- proprietary controls or SDKs
+- trialware
+- packages requiring commercial subscriptions or runtime royalties
+- copied source/assets from Araxis Merge or other proprietary merge applications
+
+## Dependency rules
+1. Use .NET/WPF first; avoid a package when a small, maintainable internal implementation is clearer.
+2. All packages use Central Package Management in `Directory.Packages.props` and versions are pinned.
+3. Commit `packages.lock.json` or equivalent lock data.
+4. Before accepting a package, add an entry to `docs/DEPENDENCIES.md` with package, exact version, purpose, direct/transitive licence notes, source URL, and approver.
+5. Do not add `DiffPlex` until MVP-04 explicitly decides whether it is needed. If used, isolate it behind an internal adapter and do not depend on any supplied WPF viewer.
+6. AvalonEdit is the only expected UI package in MVP. Use its official package, pin it, and keep all AvalonEdit types inside the WPF project.
+7. Use MSTest for the initial suite unless a later reviewed task changes that decision.
+
+## Initial reviewed baseline
+- .NET / WPF: MIT.
+- AvalonEdit: MIT.
+- MSTest: MIT.
+- DiffPlex (optional): Apache-2.0.
+
+## Asset policy
+Use only original simple vector/geometric icons or Windows/system icons where allowed. Do not use copyrighted screenshots or product-specific visual assets.

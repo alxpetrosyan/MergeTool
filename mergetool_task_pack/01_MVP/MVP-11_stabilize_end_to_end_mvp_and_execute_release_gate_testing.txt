@@ -1,0 +1,45 @@
+Scope: 01_MVP
+Task: MVP-11
+
+# MVP-11 Testing Task
+## Headline
+Verify: Stabilize integrated MVP and execute the Phase-1 release gate
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Execute `docs/mvp_acceptance.md` exactly. Treat these as mandatory gate scenarios:
+1. Compare identical text files.
+2. Compare files with insert/delete/modify blocks.
+3. Navigate all differences.
+4. Merge each hunk type in both directions where applicable, recompare, and save.
+5. Attempt stale merge and external-change save conflict.
+6. Compare folder roots with every MVP row state.
+7. Filter folder results and open paired text comparison.
+8. Cancel a folder scan.
+9. Confirm unsupported/non-text input is handled safely.
+10. Close with dirty text and verify no data-loss path.
+
+Review all task reports and defect records. Verify no Critical/High defects are open.
+
+## Gate outcome
+- **Pass:** Scope 2 may begin.
+- **Conditional pass:** only documented Medium/Low items remain and owner approval is required.
+- **Fail:** create defects, return to development, and rerun this same test task.
+
+
+## Tester completion evidence
+Create `docs/task-reports/MVP-11_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

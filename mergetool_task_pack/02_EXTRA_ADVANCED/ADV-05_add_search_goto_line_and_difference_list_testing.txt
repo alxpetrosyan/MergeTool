@@ -1,0 +1,28 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-05
+
+# ADV-05 Testing Task
+## Headline
+Verify: Add search, go-to-line, and difference list
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Validate literal/regex/case/whole-word/search-in-changes behavior, invalid regex handling, cancellation, line bound errors, and bidirectional sync between list/current block. Verify search results use source lines despite collapse projection.
+
+
+## Tester completion evidence
+Create `docs/task-reports/ADV-05_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

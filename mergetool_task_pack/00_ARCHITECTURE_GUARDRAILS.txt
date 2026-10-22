@@ -1,0 +1,90 @@
+# Architecture and Performance Guardrails
+
+## Baseline solution shape
+```text
+/src
+  MergeTool.App.Wpf              # Views, view models, WPF-only renderers and dialog adapters
+  MergeTool.Application          # Use cases, sessions, commands, orchestration; no WPF types
+  MergeTool.Core                 # Small shared primitives: diagnostics, result types, IDs, options
+  MergeTool.Text                 # Document snapshots, diff/merge domain, text algorithms
+  MergeTool.Folders              # Folder scans, quick compare model, operation plans
+  MergeTool.FileSystem           # File IO abstraction, atomic saves, identities, path handling
+  MergeTool.Settings             # Added only when Scope 2 needs persistence
+/tests
+  MergeTool.Core.Tests
+  MergeTool.Text.Tests
+  MergeTool.Folders.Tests
+  MergeTool.Application.Tests
+  MergeTool.App.Wpf.Tests        # View-model tests only; no brittle UI-pixel tests
+```
+
+## Dependency direction
+- `MergeTool.App.Wpf` may reference Application, Text, Folders, FileSystem, Core.
+- `MergeTool.Application` may reference Text, Folders, FileSystem, Core.
+- Text/Folders/FileSystem may reference Core only.
+- No non-WPF project may reference `System.Windows`, AvalonEdit, Dispatcher, `ICommand`, or WPF controls.
+- Application code owns workflows. WPF code renders state and forwards user intent.
+- Avoid generic repositories, event buses, plugin frameworks, service locators, and a DI container unless a later task proves one is necessary.
+
+## Core conventions
+- Internal line indices are zero-based.
+- `LineRange` means `[StartIndex, Length]`; never use a mixed inclusive/end-exclusive convention.
+- UI line labels are one-based and calculated only for display.
+- All document/session IDs are opaque value IDs, not paths.
+- Each document session has `DocumentRevision`, incremented on every in-memory edit/reload/save replacement.
+- Each comparison result has `ComparisonRevision` and remembers the left/right document revisions that produced it.
+- A merge action is valid only when both document revisions exactly match the comparison result. Otherwise it must be disabled and the UI must state: `Comparison is stale. Recompare before merging.`
+- A file operation uses a normalized full path and an explicit expected file identity/version token.
+- Do not mutate source data to create a visual projection. Projections are derived views.
+
+## Text document model
+A loaded document needs:
+- normalized full path and display name
+- decoded text
+- immutable line records (content and original terminator information)
+- encoding descriptor, BOM policy, dominant line-ending, mixed-ending flag, final-newline flag
+- read-only state
+- file identity/version token: length, last-write UTC, SHA-256 of loaded bytes
+- load diagnostics and text/non-text classification
+
+MVP decoding policy:
+1. Detect BOM for UTF-8 / UTF-16 LE / UTF-16 BE.
+2. Without BOM, attempt strict UTF-8.
+3. If strict UTF-8 fails, use a documented Windows ANSI fallback and add a warning diagnostic that decoding was heuristic.
+4. NUL-heavy/undecodable files are classified `NotTextForThisProduct`; no binary comparison is added.
+
+## Text comparison/rendering model
+- The diff engine produces ordered `DiffBlock` entries with stable block order, left range, right range, kind, and summary counts.
+- MVP display uses source documents in two AvalonEdit panes. It must NOT insert fake blank lines into either document for alignment.
+- A `ComparisonPresentationMap` maps source lines to blocks and supplies navigation/scroll anchors.
+- On synchronized scroll, map the first visible source line on the source pane to the corresponding block/range in the other pane; clamp safely for insertion/deletion blocks.
+- MVP may show differing blocks without vertical padding. Advanced alignment/collapse is a later feature.
+
+## Async and cancellation
+- All IO, diff calculation, hashing, and recursive folder scanning run outside the UI thread.
+- Every long operation accepts a `CancellationToken` and reports structured progress.
+- The UI uses a monotonically increasing request ID. Results whose request ID is not current are discarded.
+- Cancelling must leave the last completed result visible; it must not partially mutate an active result.
+- Do not use `Task.Run` inside domain code merely to appear asynchronous. The application layer controls scheduling.
+
+## Save safety
+- Before saving, validate the target file identity against the identity captured at load/reload. A mismatch means external modification.
+- On mismatch, do not overwrite silently. Return a structured conflict result and show safe user choices only; MVP may support Cancel and Reload. Force overwrite is out of scope unless explicitly approved.
+- Save through a temporary file in the target directory, flush it, then atomically replace/move where supported.
+- Preserve original encoding/BOM by default. Preserve the target's dominant line ending when writing merged text. Preserve a final newline only according to documented target behavior.
+
+## Folder comparison semantics
+- MVP folder comparison is a **quick metadata comparison**, not a content proof.
+- Valid states are: `LeftOnly`, `RightOnly`, `MetadataMatch`, `MetadataDifferent`, `Error`, `SkippedReparsePoint`.
+- The UI must never label a metadata match simply `Same` or `Identical`.
+- Paths are keyed relative to each selected root using Windows case-insensitive comparison, but original casing is retained for display.
+- Reparse-point directories are skipped by default and reported; do not follow them recursively.
+- No folder exclusions are enabled by default. Advanced filtering is opt-in.
+- Folder scanning returns partial rows plus diagnostics when individual paths are inaccessible; it should not discard all results for one error.
+
+## Performance targets
+MVP targets are safety thresholds, not benchmarks:
+- No UI freeze for normal source files (up to 5 MB each) or folder trees around 5,000 entries on a typical developer machine.
+- Show progress and permit cancellation for scans/diffs that take noticeably longer than a brief UI action.
+- Do not load every file body during folder scan.
+- Larger-file targets and measured benchmarks belong to Polish scope.

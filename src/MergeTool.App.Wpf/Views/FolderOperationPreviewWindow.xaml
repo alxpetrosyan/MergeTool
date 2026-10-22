@@ -1,0 +1,53 @@
+<Window x:Class="MergeTool.App.Wpf.Views.FolderOperationPreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Confirm folder operations"
+        Height="420"
+        Width="640"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        ShowInTaskbar="False">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="SummaryText"
+                   Grid.Row="0"
+                   TextWrapping="Wrap"
+                   Margin="0,0,0,8"
+                   FontWeight="SemiBold" />
+
+        <ListBox x:Name="ActionList"
+                 Grid.Row="1"
+                 Margin="0,0,0,8"
+                 AutomationProperties.Name="Planned folder actions" />
+
+        <TextBlock x:Name="WarningText"
+                   Grid.Row="2"
+                   TextWrapping="Wrap"
+                   Foreground="#FFB00020"
+                   Margin="0,0,0,8" />
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="Cancel"
+                    IsCancel="True"
+                    Width="88"
+                    Padding="8,4"
+                    Margin="0,0,8,0"
+                    Click="Cancel_Click"
+                    AutomationProperties.Name="Cancel folder operations" />
+            <Button Content="Confirm"
+                    IsDefault="True"
+                    Width="88"
+                    Padding="8,4"
+                    Click="Confirm_Click"
+                    AutomationProperties.Name="Confirm folder operations" />
+        </StackPanel>
+    </Grid>
+</Window>

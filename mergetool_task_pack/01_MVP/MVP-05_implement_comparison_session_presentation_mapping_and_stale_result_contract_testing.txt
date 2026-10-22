@@ -1,0 +1,35 @@
+Scope: 01_MVP
+Task: MVP-05
+
+# MVP-05 Testing Task
+## Headline
+Verify: Implement editable comparison sessions, presentation mapping, and stale-result contract
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+- Run unit tests for session revision changes, stale request rejection, and stale merge precondition rejection.
+- Confirm edited text cannot be merged using an old comparison result; UI-independent test must prove it.
+- Confirm cancellation/newer request logic does not replace the latest valid result with an older one.
+- Verify mapping behavior for inserted/deleted ranges has explicit non-null anchors and does not use invalid line indices.
+- Inspect code to ensure neither document data nor raw diff blocks are mutated merely for display alignment.
+
+## Failure conditions
+Fail if edits can leave merge enabled on stale ranges, old asynchronous results can overwrite current state, or presentation mapping lacks boundary behavior.
+
+
+## Tester completion evidence
+Create `docs/task-reports/MVP-05_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

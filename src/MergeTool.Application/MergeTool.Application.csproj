@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>MergeTool.Application</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MergeTool.Core\MergeTool.Core.csproj" />
+    <ProjectReference Include="..\MergeTool.Text\MergeTool.Text.csproj" />
+    <ProjectReference Include="..\MergeTool.Folders\MergeTool.Folders.csproj" />
+    <ProjectReference Include="..\MergeTool.FileSystem\MergeTool.FileSystem.csproj" />
+  </ItemGroup>
+
+</Project>

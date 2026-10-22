@@ -1,0 +1,24 @@
+# Test Data and Determinism Conventions
+
+## Location
+- Small text fixtures: `tests/TestData/Text/`
+- Folder fixtures generated at runtime under a temporary test root.
+- Do not store proprietary customer data, real credentials, or personally identifiable information.
+
+## Required fixture categories
+- UTF-8 with and without BOM
+- UTF-16 LE/BE with BOM
+- ANSI-fallback text with documented code page
+- CRLF, LF, CR, mixed endings, no final newline
+- identical files
+- inserted/deleted/modified/repeated line patterns
+- empty file and empty folder scenarios
+- folders with inaccessible-path behavior simulated via abstraction where necessary
+- reparse-point behavior tested conditionally or through abstraction, without modifying real system paths
+
+## Determinism rules
+- Use UTC timestamps created explicitly in tests.
+- Do not depend on machine locale, local time zone, user profile folders, or fixed drive letters.
+- Use temporary directories created per test and cleaned in `finally`/disposal.
+- Do not assert presentation colours by exact RGB value in core tests; assert semantic style keys.
+- Golden tests validate domain result models and operation plans, not WPF pixels.

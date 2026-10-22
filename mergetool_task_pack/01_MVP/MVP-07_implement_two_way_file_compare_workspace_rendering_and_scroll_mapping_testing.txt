@@ -1,0 +1,44 @@
+Scope: 01_MVP
+Task: MVP-07
+
+# MVP-07 Testing Task
+## Headline
+Verify: Implement 2-way file comparison workspace, semantic rendering, and scroll mapping
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Use supplied fixtures and manually verify:
+1. identical text files
+2. left insertion/right deletion
+3. several separated modifications
+4. files with significantly different length
+5. an undecodable/NUL-heavy file
+6. manually edit a pane after comparison
+
+Check:
+- colours follow block semantics, not random line content
+- scrolling does not loop/jitter or cause a UI freeze
+- stale state clearly disables merge/navigation until recompare
+- file paths/metadata match loaded fixtures
+- same-path comparison is rejected safely
+
+## Failure conditions
+Fail if displayed blocks do not match core diff results, scrolling recurses, stale actions remain enabled, or non-text data is treated as a supported binary comparison.
+
+
+## Tester completion evidence
+Create `docs/task-reports/MVP-07_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

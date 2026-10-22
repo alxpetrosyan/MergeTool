@@ -1,0 +1,28 @@
+Scope: 03_POLISH_REFACTORING
+Task: POL-06
+
+# POL-06 Testing Task
+## Headline
+Verify: Review dependencies, assets, and excluded-feature compliance
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Independently inspect project/package files and generated binaries where practical. Verify each package has documented licence/version, no prohibited dependency appears, and excluded features have no partially shipped implementation. Report uncertainty as a blocker, not an assumption.
+
+
+## Tester completion evidence
+Create `docs/task-reports/POL-06_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

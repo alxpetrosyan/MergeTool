@@ -1,0 +1,65 @@
+# Software Requirements for the Codex Machine
+
+## Required operating environment
+- Windows 11 preferred; Windows 10 22H2 acceptable.
+- 64-bit CPU.
+- Recommended: 16 GB RAM, 10 GB free disk space, SSD.
+- Network access to NuGet.org during initial restore, or an approved offline package cache.
+
+## Required free tools
+1. **.NET 10 SDK, current servicing patch**
+   - Required for build, test, and WPF development.
+   - Target framework: `net10.0-windows`.
+   - Verify with: `dotnet --info` and `dotnet --list-sdks`.
+   - Pin the verified SDK feature band in `global.json` once the repository is created.
+
+2. **Git for Windows**
+   - Required for source control and to inspect task-by-task changes.
+   - Configure a user name/email locally before committing if commits are desired.
+
+3. **PowerShell 7**
+   - Required for the supplied build/test/publish scripts.
+   - Windows PowerShell may remain installed but scripts should target PowerShell 7 syntax only when documented.
+
+4. **A free editor**
+   - VSCodium is recommended.
+   - Any editor may be used provided it does not add proprietary project dependencies or require paid extensions.
+   - Visual Studio Community may be used only after the project owner independently accepts its licence terms; it is not required.
+
+## Optional free tools
+- Windows Terminal.
+- ripgrep for searching.
+- Sysinternals Process Explorer/Handle for diagnosing locked-file tests.
+- 7-Zip only for manually inspecting zip task packs; archive comparison is not part of the product.
+
+## Do not install or depend on
+- paid WPF control suites
+- commercial diff/merge SDKs
+- Qt or any framework that creates licence obligations unless separately approved
+- database servers
+- Git/SVN/Mercurial integration SDKs
+- image/PDF/Office/binary comparison libraries
+
+## Recommended package baseline
+- WPF from .NET SDK.
+- AvalonEdit only for the text editor control in MVP, with exact version pinned after licence verification.
+- MSTest for test projects.
+- DiffPlex is optional for the initial line-diff implementation only; use it behind an internal adapter if approved, or implement a small internal algorithm. No DiffPlex WPF control.
+
+## Initial verification commands
+```powershell
+$PSVersionTable.PSVersion
+git --version
+dotnet --info
+dotnet --list-sdks
+```
+
+## Machine setup acceptance
+The machine is ready only when a clean checkout can execute:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```

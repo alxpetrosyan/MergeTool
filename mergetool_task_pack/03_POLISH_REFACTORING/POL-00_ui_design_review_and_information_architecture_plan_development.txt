@@ -1,0 +1,118 @@
+Scope: 03_POLISH_REFACTORING
+Task: POL-00
+
+# POL-00 Development Task
+## Headline
+Review the UI design and define a practical information-architecture plan before final polish work
+
+## Objective
+Create an evidence-based UI/UX design review for the current MergeTool application and turn it into a bounded, implementation-ready plan for the later polish tasks.
+
+The purpose is to make the comparison content dominant, reduce persistent toolbar density, improve command hierarchy, and ensure that the layout scales cleanly from 2-way comparison to manual 3-way merge.
+
+This is a design-review and planning task. It must not become an uncontrolled visual rewrite or a new UI framework project.
+
+## Inputs to inspect
+Read:
+- `00_PRODUCT_SCOPE_AND_PHASE_GATES.txt`
+- `00_ARCHITECTURE_GUARDRAILS.txt`
+- `00_DELIVERY_AND_TEST_PROTOCOL.txt`
+- `02_EXTRA_ADVANCED/ADV-04_add_minimap_and_collapsible_equal_regions_development.txt`
+- `02_EXTRA_ADVANCED/ADV-05_add_search_goto_line_and_difference_list_development.txt`
+- `02_EXTRA_ADVANCED/ADV-07_add_three_way_text_comparison_model_development.txt`
+- `02_EXTRA_ADVANCED/ADV-08_add_manual_three_way_output_merge_development.txt`
+- `03_POLISH_REFACTORING/POL-04_usability_accessibility_keyboard_and_high_dpi_pass_development.txt`
+
+Inspect the live application and the relevant WPF views/view models. Do not infer behaviour from source code alone.
+
+## Required review scenarios
+Capture or carefully inspect each scenario at 100%, 125%, and 150% Windows scaling where available:
+1. New/empty application shell.
+2. 2-way file comparison with no selected difference.
+3. 2-way file comparison with a modified difference selected.
+4. 2-way file comparison with Find/Filter controls open.
+5. Folder comparison with filters visible and a selected changed row.
+6. 3-way comparison with a manually resolved and an unresolved block, if the feature is available.
+7. Dirty, read-only, stale, comparison-running, cancellation, and save-conflict states where practical.
+
+## Required review criteria
+Assess the live UI against all of the following:
+- visual hierarchy and first-glance comprehension;
+- comparison editors receiving the majority of available screen space;
+- grouping of global, comparison setup, navigation, merge, save, search/filter, and advanced commands;
+- command discoverability without permanently exposing low-frequency controls;
+- clear distinction between destructive, merge, and save actions;
+- clear current-difference and dirty/stale/read-only state feedback;
+- usability of the right-side difference list and minimap;
+- scalability to 3-way comparison and output-merge workflow;
+- keyboard and focus flow;
+- clipping, wrapping, overlap, and excessive density at required DPI scales;
+- use of semantic colours without relying on colour alone;
+- consistency between file and folder workspaces.
+
+## Required design deliverable
+Create `docs/ui/POL-00_ui_design_review.md`.
+
+The document must contain:
+1. A concise current-state assessment with evidence from the required scenarios.
+2. A numbered list of concrete issues, each labelled High / Medium / Low.
+3. A recommended command hierarchy. At minimum separate:
+   - global/workspace actions;
+   - comparison setup;
+   - review/navigation;
+   - contextual merge actions;
+   - save actions;
+   - Find/Filter/Go-to controls;
+   - optional panels.
+4. A proposed target layout for:
+   - 2-way file comparison;
+   - 3-way file comparison with output;
+   - folder comparison.
+5. ASCII wireframes or equivalent simple layout diagrams. Do not use copyrighted third-party product screenshots.
+6. A command inventory showing where every currently available command will live after redesign. No existing command may silently disappear.
+7. A list of exactly which UI changes should be implemented in POL-04, split into:
+   - Required for release;
+   - Recommended if low risk;
+   - Deferred backlog.
+8. A release acceptance checklist for the redesigned UI.
+9. A list of design decisions explicitly out of scope, such as a ribbon, theme editor, paid control suite, report designer, or a new UI framework.
+
+## Target layout principles
+The recommendation must use these principles unless a clearly documented reason says otherwise:
+- The comparison content is the primary visual focus.
+- Do not add a ribbon.
+- Do not add paid/proprietary UI libraries or a UI framework replacement.
+- File/folder setup belongs in a compact comparison header, not a multi-row control wall.
+- Difference navigation should be compact and close to the comparison state.
+- Merge commands should be contextual to an active difference or resolution workflow.
+- Save commands must be easy to find but visually separate from merge direction commands.
+- Find/Filter/Go-to controls should be available through a collapsible panel, expander, command palette, or similarly compact mechanism rather than occupying a permanent full toolbar row.
+- Difference list and minimap should be useful but optional/collapsible where screen width is limited.
+- The planned layout must work for 2-way, 3-way, and folder comparison without requiring a different shell.
+- Keep the existing core/application boundaries. UI restructuring must not move comparison logic into WPF views.
+
+## Implementation boundary
+Do not perform the full redesign in this task.
+
+Permitted changes:
+- documentation;
+- screenshots or diagrams under `docs/ui/`;
+- narrowly scoped view/view-model changes only when required to make the reviewed states observable or to correct an obvious blocking layout defect.
+
+Any non-trivial UI implementation belongs to POL-04 and must follow the approved plan from this task.
+
+## Drift prevention
+Do not:
+- add new comparison, merge, folder, VCS, report, print, binary, image, or patch features;
+- replace WPF, AvalonEdit, or the existing workspace architecture;
+- add a design system, plugin platform, theme editor, or paid UI package;
+- copy Araxis Merge layouts, icons, wording, or assets;
+- hide commands without documenting their replacement location;
+- produce generic advice without inspecting the real current application.
+
+## Mandatory completion evidence
+- Create `docs/ui/POL-00_ui_design_review.md`.
+- Create `docs/task-reports/POL-00_development.md`.
+- Record the reviewed scenarios, DPI scales, screenshots/diagrams, identified issues, and recommended POL-04 work.
+- Run Debug and Release build/test commands if code was changed; otherwise run the mandatory baseline commands from the paired testing task.
+- Do not start POL-01 until the paired testing task has passed.

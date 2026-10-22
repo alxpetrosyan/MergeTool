@@ -1,0 +1,22 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-13
+
+# ADV-13 Development Task
+## Headline
+Add moved-block and renamed-file assistance
+
+
+## Objective
+Reduce noise for obvious moves/renames without turning heuristics into authoritative merge decisions.
+
+## Developer instructions
+Add optional moved-block detection for 2-way text comparison with bounded size/work limits and visual semantic marker. Add folder rename-candidate suggestions using optional content hash/name similarity only when explicitly requested. Suggestions must never automatically align, rename, copy, or delete files; user explicitly accepts an alignment in UI.
+
+## Drift prevention
+No automatic rename, no VCS rename detection, no heuristic merge action, no unbounded similarity scan.
+
+## Mandatory completion evidence
+- Add/update automated tests for the change.
+- Run Debug and Release build/test commands.
+- Create the required development report under `docs/task-reports/`.
+- Do not start the next task until the paired testing task has passed.

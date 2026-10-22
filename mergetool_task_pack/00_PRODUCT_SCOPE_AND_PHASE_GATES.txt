@@ -1,0 +1,62 @@
+# Product Scope and Phase Gates
+
+## Product statement
+Build a lightweight Windows desktop application for manual comparison and merging of text files, and visual comparison of folder trees. It must feel dependable for source-code, configuration, deployment, and log-like text workflows.
+
+## Product-wide non-negotiables
+- Windows-only WPF desktop application.
+- Local-only processing. No cloud calls, telemetry, accounts, or remote storage.
+- Core comparison and merge logic has no WPF dependency.
+- Explicit, user-controlled merge/copy actions only. No automatic file merge or automatic folder merge.
+- Correctness and safety outrank visual polish.
+- All time values used in comparison models are UTC.
+- All persistent paths are normalized full paths; no string-concatenated file-system paths.
+- No feature may be marked complete without developer and tester task reports.
+
+## Scope 1 — MVP
+### Must be present before Scope 2 starts
+1. One app shell containing a File Compare workspace and Folder Compare workspace.
+2. 2-way line-based text comparison.
+3. Fixed visual highlighting for equal/inserted/deleted/modified blocks.
+4. Difference navigation.
+5. Manual current-block copy left-to-right and right-to-left.
+6. Explicit stale-comparison behavior after document edits.
+7. Encoding and line-ending preservation on save.
+8. External-change conflict detection and safe, atomic save flow.
+9. Recursive 2-way quick folder comparison.
+10. Accurate folder states: left-only, right-only, metadata-match, metadata-different, error, skipped-reparse-point.
+11. Folder filtering and opening a paired text-file comparison.
+12. Cancellation/progress for file and folder compare operations.
+
+### MVP explicitly does NOT include
+- Automatic merge or automatic synchronization.
+- 3-way comparison/merge.
+- Regex rules, syntax profiles, minimap, search panel, or collapsible equal regions.
+- Folder copy/delete operations.
+- Content hashing as a default folder mode.
+- Tree rendering; MVP uses a performant flat recursive result grid with relative paths.
+- Binary, image, patch, Office/PDF, VCS, report, archive, print, installer, licensing, updater, or cross-platform work.
+
+### Gate to proceed to Scope 2
+All MVP acceptance scenarios in `MVP-11` pass. No open Critical/High defects. The application can be demonstrated end-to-end with supplied test data.
+
+## Scope 2 — Extra and advanced features
+Adds quality and capability without changing the product boundary:
+- intraline differences
+- comparison rules and file profiles
+- minimap, collapse, search
+- manual folder copy/delete with preview
+- 3-way text/manual output merge
+- 3-way folders
+- optional content/hash folder comparison
+- settings, recents, formatted JSON/XML projection
+- moved-block and renamed-file assistance
+
+### Gate to proceed to Scope 3
+Every added feature has a deterministic core test and a manual workflow test. No new dependency without record and licence approval.
+
+## Scope 3 — Polish and refactoring
+Focuses on architecture, errors, performance, accessibility, regression protection, dependency compliance, portable publishing, and final release acceptance.
+
+### Final completion gate
+A clean clone builds in Debug and Release, tests pass, portable publish works, acceptance results are documented, and no excluded feature has been introduced.

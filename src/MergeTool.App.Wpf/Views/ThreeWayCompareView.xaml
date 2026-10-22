@@ -1,0 +1,156 @@
+<UserControl x:Class="MergeTool.App.Wpf.Views.ThreeWayCompareView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:views="clr-namespace:MergeTool.App.Wpf.Views">
+    <UserControl.Resources>
+        <views:NullToVisibilityConverter x:Key="NullToCollapsed" />
+        <Style x:Key="PaneHeaderText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="#FF555555" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,10,0" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.Column="0" Margin="0,0,6,0">
+                <TextBlock DockPanel.Dock="Top" Text="Base file" Margin="0,0,0,2" Foreground="#FF555555" />
+                <Button DockPanel.Dock="Right" Content="…" Width="28" Margin="4,0,0,0"
+                        Command="{Binding ChooseBaseFileCommand}"
+                        AutomationProperties.Name="Choose base file" />
+                <TextBox Text="{Binding BasePath, UpdateSourceTrigger=PropertyChanged}"
+                         AutomationProperties.Name="Base file path" Padding="4" />
+            </DockPanel>
+            <DockPanel Grid.Column="1" Margin="6,0,6,0">
+                <TextBlock DockPanel.Dock="Top" Text="Left file" Margin="0,0,0,2" Foreground="#FF555555" />
+                <Button DockPanel.Dock="Right" Content="…" Width="28" Margin="4,0,0,0"
+                        Command="{Binding ChooseLeftFileCommand}"
+                        AutomationProperties.Name="Choose left file" />
+                <TextBox Text="{Binding LeftPath, UpdateSourceTrigger=PropertyChanged}"
+                         AutomationProperties.Name="Left file path" Padding="4" />
+            </DockPanel>
+            <DockPanel Grid.Column="2" Margin="6,0,6,0">
+                <TextBlock DockPanel.Dock="Top" Text="Right file" Margin="0,0,0,2" Foreground="#FF555555" />
+                <Button DockPanel.Dock="Right" Content="…" Width="28" Margin="4,0,0,0"
+                        Command="{Binding ChooseRightFileCommand}"
+                        AutomationProperties.Name="Choose right file" />
+                <TextBox Text="{Binding RightPath, UpdateSourceTrigger=PropertyChanged}"
+                         AutomationProperties.Name="Right file path" Padding="4" />
+            </DockPanel>
+            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Button Content="Compare" Command="{Binding CompareCommand}" Padding="16,4" />
+                <Button Content="Recompare" Command="{Binding RecompareCommand}" Padding="16,4" Margin="6,0,0,0" />
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Margin="0,8,0,0" Orientation="Horizontal">
+            <Button Content="Previous difference" Command="{Binding PreviousDifferenceCommand}" Padding="10,3" />
+            <Button Content="Next difference" Command="{Binding NextDifferenceCommand}" Padding="10,3" Margin="6,0,12,0" />
+            <Button Content="Next unresolved" Command="{Binding NextUnresolvedCommand}" Padding="10,3" Margin="0,0,12,0" />
+            <TextBlock Text="{Binding NavigationText}" VerticalAlignment="Center" Foreground="#FF555555"
+                       Visibility="{Binding NavigationText, Converter={StaticResource NullToCollapsed}}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Margin="0,8,0,0" Orientation="Horizontal">
+            <TextBlock Text="Resolve selected region:" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="#FF555555" />
+            <Button Content="Use base" Command="{Binding UseBaseForRegionCommand}" Padding="10,3" />
+            <Button Content="Use left" Command="{Binding UseLeftForRegionCommand}" Padding="10,3" Margin="6,0,0,0" />
+            <Button Content="Use right" Command="{Binding UseRightForRegionCommand}" Padding="10,3" Margin="6,0,12,0" />
+            <Button Content="Save output…" Command="{Binding SaveOutputCommand}" Padding="10,3" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Margin="0,6,0,4">
+            <TextBlock Foreground="#FF555555" Text="{Binding SummaryText}"
+                       Visibility="{Binding SummaryText, Converter={StaticResource NullToCollapsed}}" />
+            <TextBlock Foreground="#FF1A6FB5" Text="{Binding OutputStatusText}" Margin="0,4,0,0"
+                       Visibility="{Binding OutputStatusText, Converter={StaticResource NullToCollapsed}}" />
+        </StackPanel>
+
+        <views:DiagnosticsPanel Grid.Row="4" Margin="0,4,0,0" />
+
+        <Grid Grid.Row="5" Margin="0,4,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="220" />
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Column="0" Margin="0,0,4,0">
+                <TextBlock DockPanel.Dock="Top" Style="{StaticResource PaneHeaderText}" Text="Base (ancestor)" />
+                <avalonedit:TextEditor x:Name="BaseEditor" IsReadOnly="True" ShowLineNumbers="True"
+                                       FontFamily="Consolas" FontSize="13" />
+            </DockPanel>
+            <DockPanel Grid.Column="1" Margin="4,0,4,0">
+                <TextBlock DockPanel.Dock="Top" Style="{StaticResource PaneHeaderText}" Text="Left (variant)" />
+                <avalonedit:TextEditor x:Name="LeftEditor" IsReadOnly="True" ShowLineNumbers="True"
+                                       FontFamily="Consolas" FontSize="13" />
+            </DockPanel>
+            <DockPanel Grid.Column="2" Margin="4,0,4,0">
+                <TextBlock DockPanel.Dock="Top" Style="{StaticResource PaneHeaderText}" Text="Right (variant)" />
+                <avalonedit:TextEditor x:Name="RightEditor" IsReadOnly="True" ShowLineNumbers="True"
+                                       FontFamily="Consolas" FontSize="13" />
+            </DockPanel>
+            <DockPanel Grid.Column="3" Margin="4,0,4,0">
+                <TextBlock DockPanel.Dock="Top" Style="{StaticResource PaneHeaderText}" Text="Output (merged)" />
+                <avalonedit:TextEditor x:Name="OutputEditor" IsReadOnly="False" ShowLineNumbers="True"
+                                       FontFamily="Consolas" FontSize="13" />
+            </DockPanel>
+            <DockPanel Grid.Column="4">
+                <TextBlock DockPanel.Dock="Top" Text="Difference regions" FontWeight="SemiBold" Margin="0,0,0,4" />
+                <ListBox x:Name="RegionListBox"
+                         ItemsSource="{Binding RegionList}"
+                         SelectedValue="{Binding SelectedRegionOrdinal}"
+                         SelectedValuePath="RegionOrdinal"
+                         SelectionChanged="RegionList_SelectionChanged"
+                         MouseDoubleClick="RegionList_MouseDoubleClick"
+                         AutomationProperties.Name="Three-way difference regions">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,2,0,2">
+                                <TextBlock Text="{Binding KindDisplay}" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding ResolutionDisplay}" Foreground="#FF1A6FB5" FontSize="11" />
+                                <TextBlock Text="{Binding Summary}" TextWrapping="Wrap" Foreground="#FF666666" FontSize="11" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Grid>
+
+        <Border Grid.Row="6" Margin="0,8,0,0" Padding="8" Background="#FFF5F5F5" BorderBrush="#FFDDDDDD" BorderThickness="1">
+            <StackPanel>
+                <TextBlock Text="3-way inspection legend" FontWeight="SemiBold" Margin="0,0,0,4" />
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="14" Height="14" Background="#FFFFF3D6" BorderBrush="#FFCCCCCC" BorderThickness="1" Margin="0,0,4,0" />
+                    <TextBlock Text="Left only" Margin="0,0,12,0" VerticalAlignment="Center" />
+                    <Border Width="14" Height="14" Background="#FFE8F4FF" BorderBrush="#FFCCCCCC" BorderThickness="1" Margin="0,0,4,0" />
+                    <TextBlock Text="Right only" Margin="0,0,12,0" VerticalAlignment="Center" />
+                    <Border Width="14" Height="14" Background="#FFEEF6EE" BorderBrush="#FFCCCCCC" BorderThickness="1" Margin="0,0,4,0" />
+                    <TextBlock Text="Same change" Margin="0,0,12,0" VerticalAlignment="Center" />
+                    <Border Width="14" Height="14" Background="#FFF8DEDE" BorderBrush="#FFCCCCCC" BorderThickness="1" Margin="0,0,4,0" />
+                    <TextBlock Text="Divergent" VerticalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

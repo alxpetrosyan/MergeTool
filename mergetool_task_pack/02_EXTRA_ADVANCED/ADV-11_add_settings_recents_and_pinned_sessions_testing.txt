@@ -1,0 +1,28 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-11
+
+# ADV-11 Testing Task
+## Headline
+Verify: Add settings, recents, and pinned comparison entries
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Test settings roundtrip, schema version migration, corrupted JSON fallback, missing/revoked paths, recent list ordering/deduplication, and reset behavior. Confirm no document content is persisted.
+
+
+## Tester completion evidence
+Create `docs/task-reports/ADV-11_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

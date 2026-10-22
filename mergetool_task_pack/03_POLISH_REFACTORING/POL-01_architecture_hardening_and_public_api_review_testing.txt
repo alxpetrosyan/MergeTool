@@ -1,0 +1,28 @@
+Scope: 03_POLISH_REFACTORING
+Task: POL-01
+
+# POL-01 Testing Task
+## Headline
+Verify: Harden architecture and review public APIs
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Compare behavior before/after through regression suite, inspect dependency direction, and verify public model changes are documented. Fail if refactor breaks an accepted workflow or adds needless abstraction.
+
+
+## Tester completion evidence
+Create `docs/task-reports/POL-01_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

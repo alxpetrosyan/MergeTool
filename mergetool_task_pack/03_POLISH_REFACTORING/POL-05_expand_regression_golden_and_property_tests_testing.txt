@@ -1,0 +1,28 @@
+Scope: 03_POLISH_REFACTORING
+Task: POL-05
+
+# POL-05 Testing Task
+## Headline
+Verify: Expand regression, golden, and property-focused tests
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Review test determinism across Debug/Release, confirm golden data has readable origin, run suite repeatedly, and ensure new tests fail when a deliberately introduced small defect is simulated where safe.
+
+
+## Tester completion evidence
+Create `docs/task-reports/POL-05_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

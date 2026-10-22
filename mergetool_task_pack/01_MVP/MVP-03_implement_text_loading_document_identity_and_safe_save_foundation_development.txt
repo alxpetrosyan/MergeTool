@@ -1,0 +1,43 @@
+Scope: 01_MVP
+Task: MVP-03
+
+# MVP-03 Development Task
+## Headline
+Implement text loading, identity tokens, encoding/line-ending preservation, and atomic save foundation
+
+
+## Objective
+Create a safe, UI-independent text document service that supports reliable comparison and later merge/save behavior.
+
+## Developer instructions
+Implement in `MergeTool.Text` and `MergeTool.FileSystem`:
+- `TextDocumentSnapshot` and immutable `TextLine` records.
+- `TextDocumentMetadata`: normalized full path, display name, encoding descriptor, BOM policy, dominant line ending, mixed-ending flag, final-newline flag, length, last write UTC, read-only flag, text classification, load diagnostics.
+- `TextDocumentLoader.LoadAsync(path, cancellationToken)`.
+- deterministic decoder policy exactly as defined in `00_ARCHITECTURE_GUARDRAILS.txt`.
+- normalized line records that preserve content and terminator facts without repeatedly splitting the whole text.
+- a `FileIdentity` constructed from load bytes: normalized path, length, last-write UTC, SHA-256.
+- `SafeTextFileWriter.SaveAsync(expectedIdentity, documentText/lines, metadata, cancellationToken)`.
+
+Safe save rules:
+- Before write, re-read current file identity. If it differs from expected identity, return `ExternalModificationConflict`; do not overwrite.
+- Write to a temporary file in the target directory, flush/close it, and use an atomic replace/move strategy where Windows allows.
+- Preserve target encoding/BOM/line-ending policy by default.
+- Do not silently convert a failed/ambiguous decoding to another encoding when saving.
+- Model source documents as read-only snapshots; editing session behavior comes later.
+
+Unit tests must create byte fixtures for all required encoding and line-ending cases, save/reload roundtrips, external modification mismatch, read-only/missing path diagnostics, and no-final-newline behavior.
+
+## Acceptance criteria
+- Every tested document roundtrips with its declared encoding/BOM/line-ending policy.
+- A changed file on disk is not overwritten by a stale loaded identity.
+- NUL-heavy/undecodable data produces `NotTextForThisProduct` or diagnostic behavior, never accidental binary support.
+
+## Drift prevention
+Do not build editor UI, syntax highlighting, diff logic, or generic file-format parsers in this task.
+
+## Mandatory completion evidence
+- Add/update automated tests for the change.
+- Run Debug and Release build/test commands.
+- Create the required development report under `docs/task-reports/`.
+- Do not start the next task until the paired testing task has passed.

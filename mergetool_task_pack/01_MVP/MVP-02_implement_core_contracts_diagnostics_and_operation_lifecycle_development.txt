@@ -1,0 +1,44 @@
+Scope: 01_MVP
+Task: MVP-02
+
+# MVP-02 Development Task
+## Headline
+Implement core contracts, diagnostics, and cancellable operation lifecycle
+
+
+## Objective
+Create the small set of cross-cutting primitives that prevent later workflows from becoming unsafe or UI-bound.
+
+## Developer instructions
+In `MergeTool.Core`, implement only focused primitives:
+- opaque value IDs for document sessions and comparison sessions
+- `Diagnostic` (severity, code, safe message, technical detail, path/side context)
+- `OperationResult<T>` or equivalent result that can carry a value plus diagnostics
+- `OperationProgress` (phase, current item, completed count, total if known)
+- `OperationStatus` (Idle, Running, Completed, Cancelled, Failed)
+- `FileIdentity` / `FileVersionToken` shape, without file IO implementation yet
+- `ComparisonRequestId` monotonic value type or equivalent
+
+In `MergeTool.Application`, define workflow conventions—not a broad framework:
+- every long-running use case receives `CancellationToken`
+- the application layer owns request IDs and rejects stale completions
+- domain services do not call UI dispatchers or create background tasks themselves
+- cancellation returns a controlled cancelled result and does not overwrite the last successful workspace state
+
+Document these conventions in `docs/architecture/operation-lifecycle.md`.
+
+Add tests for diagnostic composition, request ordering, cancellation-state handling, and value equality/immutability where applicable.
+
+## Acceptance criteria
+- No WPF types appear in Core/Application contracts.
+- A newer request can be distinguished from an older completed request deterministically.
+- Diagnostics contain safe user-facing text without forcing callers to expose exception details.
+
+## Drift prevention
+Do not add an event bus, mediator library, reactive framework, message queue, logging framework, or generic repository abstraction.
+
+## Mandatory completion evidence
+- Add/update automated tests for the change.
+- Run Debug and Release build/test commands.
+- Create the required development report under `docs/task-reports/`.
+- Do not start the next task until the paired testing task has passed.

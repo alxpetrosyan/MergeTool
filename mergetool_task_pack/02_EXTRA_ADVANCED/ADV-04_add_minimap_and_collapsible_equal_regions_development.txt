@@ -1,0 +1,24 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-04
+
+# ADV-04 Development Task
+## Headline
+Add difference minimap and collapsible equal-region projection
+
+
+## Objective
+Improve navigation in large comparisons without altering documents or breaking line/block mappings.
+
+## Developer instructions
+Add minimap model from diff blocks/current viewport and a view-projection for collapsing long equal blocks with configurable context. Collapse must never remove original text, mutate sessions, invalidate merge anchors, or make hidden blocks unaddressable. Expand/collapse commands map accurately to source lines.
+
+Ensure navigation can expand a needed region before scrolling to it. Add model-level tests for first/last block contexts, collapsed regions, minimap proportional coordinates, and diff selection.
+
+## Drift prevention
+No printing/export map, custom theme editor, or virtual blank alignment system.
+
+## Mandatory completion evidence
+- Add/update automated tests for the change.
+- Run Debug and Release build/test commands.
+- Create the required development report under `docs/task-reports/`.
+- Do not start the next task until the paired testing task has passed.

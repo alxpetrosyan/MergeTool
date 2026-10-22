@@ -1,0 +1,24 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-08
+
+# ADV-08 Development Task
+## Headline
+Add manual 3-way output merge and resolution workflow
+
+
+## Objective
+Allow deliberate selection of left/base/right content into a separate output session.
+
+## Developer instructions
+Create an output document session initialized from base (or a documented empty-output alternative). For each selected 3-way region, provide choose-left/base/right and manual edit. Every action is explicit and recorded as a resolution state. Output edits make region state unresolved/stale as appropriate. Save output via safe writer to a user-selected path; sources stay untouched.
+
+No automatic selection or auto-merge of non-overlapping blocks.
+
+## Drift prevention
+No automatic merge algorithm, generated conflict markers, or source-file replacement by default.
+
+## Mandatory completion evidence
+- Add/update automated tests for the change.
+- Run Debug and Release build/test commands.
+- Create the required development report under `docs/task-reports/`.
+- Do not start the next task until the paired testing task has passed.

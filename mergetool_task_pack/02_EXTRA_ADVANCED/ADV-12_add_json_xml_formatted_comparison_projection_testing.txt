@@ -1,0 +1,28 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-12
+
+# ADV-12 Testing Task
+## Headline
+Verify: Add safe JSON/XML formatted comparison projection
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Test valid/invalid JSON/XML, raw fallback, formatted-vs-raw indicator, no source mutation, and merge command disabled/requires raw mode. Confirm parser errors are safe diagnostics.
+
+
+## Tester completion evidence
+Create `docs/task-reports/ADV-12_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

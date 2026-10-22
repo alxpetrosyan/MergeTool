@@ -1,0 +1,22 @@
+Scope: 03_POLISH_REFACTORING
+Task: POL-05
+
+# POL-05 Development Task
+## Headline
+Expand regression, golden, and property-focused tests
+
+
+## Objective
+Protect core correctness as future changes are made.
+
+## Developer instructions
+Broaden fixtures and golden model tests across diff ranges, inline segments, rules/projections, merge plans, 3-way classification, folder states/plans, encoding/save, diagnostics, settings. Add limited property-style invariants without a heavy framework where useful: e.g., same input -> equal result; merge precondition rejects changed revision; folder paths cannot escape roots. Keep tests deterministic.
+
+## Drift prevention
+No screenshot/pixel-suite requirement, network test data, or flaky timing assertions.
+
+## Mandatory completion evidence
+- Add/update automated tests for the change.
+- Run Debug and Release build/test commands.
+- Create the required development report under `docs/task-reports/`.
+- Do not start the next task until the paired testing task has passed.

@@ -1,0 +1,28 @@
+Scope: 02_EXTRA_ADVANCED
+Task: ADV-07
+
+# ADV-07 Testing Task
+## Headline
+Verify: Add 3-way text comparison model and inspection UI
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Use fixtures for independent left/right changes, identical changes, overlapping divergent changes, insertions/deletions near same base region, and empty base. Verify classification/ranges and no source document is modified by inspection.
+
+
+## Tester completion evidence
+Create `docs/task-reports/ADV-07_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

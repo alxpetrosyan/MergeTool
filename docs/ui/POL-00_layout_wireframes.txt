@@ -1,0 +1,74 @@
+POL-00 target layout wireframes (ASCII)
+======================================
+
+SHELL (all workspaces)
+----------------------
++------------------------------------------------------------------+
+| MergeTool   [File Compare] [Folder] [3-Way Folder] [3-Way]       |  <- global launch (single row)
++------------------------------------------------------------------+
+| Recents [v] Open | Pinned [v] Open | Pin | Clear | Reset         |  <- session bar (collapsible in target)
++------------------------------------------------------------------+
+| [ left.txt <-> right.txt                              x ]  tabs  |
++------------------------------------------------------------------+
+|                                                                  |
+|                     WORKSPACE CONTENT (dominant)                 |
+|                                                                  |
++------------------------------------------------------------------+
+| Idle | [==== busy ====] Cancel                                   |  <- status
++------------------------------------------------------------------+
+
+
+2-WAY FILE COMPARE (target)
+---------------------------
++------------------------------------------------------------------+
+| COMPARISON HEADER (compact, 1-2 rows max)                        |
+| Left [........path........] [...] | Right [.......path...] [...] |
+| Profile [v] | Compare | Recompare | Rules v | Find v | Panels v  |
++------------------------------------------------------------------+
+| REVIEW STRIP (single row)                                        |
+| < Prev | Next > | Diff 2 of 5 | [stale/dirty badges]             |
++------------------------------------------------------------------+
+| CONTEXT ACTIONS (visible when diff selected; merge group separated)|
+|        [ Copy -> Right ]  [ <- Copy Left ]     | Save L | Save R | All |
++------------------------------------------------------------------+
+| Left editor ========================||==== Right editor ==========|
+| (line numbers, diff colours)       |||       (sync scroll)        |
+|                                    |||  [Diff list] [Minimap]       |
+|                                    |||  (collapsible side rail)    |
++------------------------------------------------------------------+
+| Summary line + colour legend (single footer row)                 |
++------------------------------------------------------------------+
+
+
+3-WAY FILE COMPARE WITH OUTPUT (target)
+--------------------------------------
++------------------------------------------------------------------+
+| Base [...] | Left [...] | Right [...] | Compare | Recompare     |
++------------------------------------------------------------------+
+| < Prev | Next > | Next unresolved | region 3 of 8 | output dirty  |
++------------------------------------------------------------------+
+| Resolve: [Use base] [Use left] [Use right]  |  [Save output...] |
++------------------------------------------------------------------+
+| Base ===== | Left ===== | Right ===== | Output ===== | Regions  |
+| (read-only panes)              (editable)         (list)         |
++------------------------------------------------------------------+
+| Legend (compact)                                                 |
++------------------------------------------------------------------+
+
+
+FOLDER COMPARE (target)
+-----------------------
++------------------------------------------------------------------+
+| Left folder [...] | Right [...] | Compare | Recompare            |
+| Mode [v] | Tolerance | Filter: All | Diffs | Errors              |
++------------------------------------------------------------------+
+| PRIMARY: results grid (virtualized, dominant height)             |
+| relative path | state | sizes | times | diagnostics            |
++------------------------------------------------------------------+
+| SECONDARY TOOLBAR (contextual, not always visible)               |
+| Open paired | Copy | Delete | Find rename candidates             |
++------------------------------------------------------------------+
+| Rename candidates panel (on demand, below grid when active)      |
++------------------------------------------------------------------+
+| Legend (collapsible)                                             |
++------------------------------------------------------------------+

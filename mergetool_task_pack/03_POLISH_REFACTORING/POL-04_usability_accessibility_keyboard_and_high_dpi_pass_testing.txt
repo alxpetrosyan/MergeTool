@@ -1,0 +1,28 @@
+Scope: 03_POLISH_REFACTORING
+Task: POL-04
+
+# POL-04 Testing Task
+## Headline
+Verify: Perform usability, accessibility, keyboard, and High-DPI pass
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Execute primary workflow keyboard-only, inspect common screen-reader/accessibility metadata where tools permit, test DPI scales, and verify no clipped/overlapping controls. Confirm fixed colours still distinguish semantic states.
+
+
+## Tester completion evidence
+Create `docs/task-reports/POL-04_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

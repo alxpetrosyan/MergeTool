@@ -1,0 +1,28 @@
+Scope: 03_POLISH_REFACTORING
+Task: POL-07
+
+# POL-07 Testing Task
+## Headline
+Verify: Prepare portable Windows publish and user documentation
+
+
+## Mandatory baseline checks
+Run from a clean working tree when possible:
+```powershell
+dotnet restore
+dotnet build -c Debug
+dotnet test -c Debug
+dotnet build -c Release
+dotnet test -c Release
+```
+
+Inspect `git diff` and `docs/DEPENDENCIES.md`. Confirm no unexpected package, architecture, or scope change was introduced.
+
+
+
+## Tester instructions
+Run clean publish, launch published app on a machine/profile without source tree assumptions if possible, execute smoke workflow, confirm documentation matches actual UI, and verify output contains no unexpected proprietary assets/dependencies.
+
+
+## Tester completion evidence
+Create `docs/task-reports/POL-07_testing.md` with verdict, evidence, defects, and proceed/fix recommendation. Follow `00_DELIVERY_AND_TEST_PROTOCOL.txt` exactly.

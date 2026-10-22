@@ -1,0 +1,44 @@
+# Revised Merge Tool Task Pack — Start Here
+
+## Purpose
+This task pack drives the implementation of a commercial-grade, Windows-only manual text and folder comparison/merge application. It is inspired by the category of Araxis Merge, but must be designed and implemented independently.
+
+The pack has been revised after an architecture audit. It corrects ambiguity that could otherwise lead an AI developer to create disconnected demos, unsafe merge actions, inaccurate folder results, or a UI that compiles but does not operate as one coherent tool.
+
+## Mandatory execution order
+1. Read every `00_*.txt` file before changing code.
+2. Work through tasks in exact numeric order.
+3. For each task, complete `<task>_development.txt` first.
+4. Immediately complete the paired `<task>_testing.txt`.
+5. If the testing task fails, record a defect, fix it, and re-run the same testing task. Do not begin the next task while a blocking defect remains.
+6. At the end of a scope, run that scope's summary prompt and provide its full output to the product owner for review before beginning the next scope.
+
+## Definition of a working MVP
+At the end of `01_MVP`, one WPF application must allow a user to:
+- Open two text files in one file-comparison workspace.
+- Compare them in the background without freezing the UI on normal-size source files.
+- See deterministic line-level color highlighting for added, removed, and modified blocks.
+- Navigate next/previous differences.
+- Copy the selected difference from left to right or right to left.
+- Recompare after edits and save a changed file safely.
+- Open two folders in one folder-comparison workspace.
+- Run a recursive, cancellable quick folder comparison.
+- See left-only, right-only, metadata-match, metadata-different, and error states accurately labelled.
+- Filter results and open a paired text file comparison from a folder row.
+
+MVP does NOT include automatic merge, automatic folder sync, binary/image/PDF/Office comparisons, patch support, version-control integration, reports, printing, or installers.
+
+## What Codex must not do
+- Do not silently substitute a different UI framework, language, database, or large dependency stack.
+- Do not add packages without licence review and an explicit entry in `docs/DEPENDENCIES.md`.
+- Do not implement future-scope features early merely because they appear convenient.
+- Do not copy Araxis code, assets, icons, UI text, screenshots, documentation text, or proprietary behavior.
+- Do not claim a feature works without a repeatable test proving it.
+
+Read next:
+- `00_PRODUCT_SCOPE_AND_PHASE_GATES.txt`
+- `00_ARCHITECTURE_GUARDRAILS.txt`
+- `00_DELIVERY_AND_TEST_PROTOCOL.txt`
+- `00_SOFTWARE_REQUIREMENTS.txt`
+- `00_LICENSE_AND_DEPENDENCY_POLICY.txt`
+- `00_TASK_INDEX.txt`
